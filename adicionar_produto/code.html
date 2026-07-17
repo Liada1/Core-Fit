@@ -1,0 +1,331 @@
+<!DOCTYPE html><html lang="pt-BR" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Anybody:wght@600;700;800&amp;family=Hanken+Grotesk:wght@400&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#2f3131",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary": "#283500",
+                      "error": "#ffb4ab",
+                      "on-secondary-fixed-variant": "#474646",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "primary-fixed-dim": "#abd600",
+                      "on-error": "#690005",
+                      "on-surface-variant": "#c4c9ac",
+                      "tertiary-container": "#e2e2e2",
+                      "tertiary": "#ffffff",
+                      "primary-container": "#c3f400",
+                      "surface-tint": "#abd600",
+                      "tertiary-fixed": "#e2e2e2",
+                      "surface-bright": "#393939",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "on-secondary": "#313030",
+                      "secondary-container": "#4a4949",
+                      "on-secondary-container": "#bab8b7",
+                      "on-background": "#e5e2e1",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "inverse-on-surface": "#303030",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-primary-fixed-variant": "#3c4d00",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "surface-variant": "#353535",
+                      "secondary-fixed": "#e5e2e1",
+                      "primary": "#ffffff",
+                      "outline": "#8e9379",
+                      "surface": "#131313",
+                      "surface-container-highest": "#353535",
+                      "surface-container": "#202020",
+                      "outline-variant": "#444933",
+                      "on-primary-fixed": "#161e00",
+                      "surface-dim": "#131313",
+                      "on-primary-container": "#556d00",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1b1b1c",
+                      "on-surface": "#e5e2e1",
+                      "error-container": "#93000a",
+                      "secondary": "#c8c6c5",
+                      "primary-fixed": "#c3f400",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "background": "#131313",
+                      "on-tertiary-container": "#636565",
+                      "surface-container-high": "#2a2a2a",
+                      "inverse-primary": "#506600"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "sm": "12px",
+                      "lg": "48px",
+                      "container-max": "1440px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "gutter": "24px",
+                      "md": "24px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "label-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Anybody"
+                      ],
+                      "headline-lg": [
+                              "Anybody"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Anybody"
+                      ],
+                      "display-lg": [
+                              "Anybody"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "38px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "72px",
+                              {
+                                      "lineHeight": "76px",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row antialiased">
+<!-- Desktop Side Navigation (NavigationDrawer) -->
+<aside class="hidden md:flex flex-col bg-surface-container-lowest h-full w-72 rounded-r-lg border-r border-white/5 shadow-xl fixed left-0 top-0 z-40">
+<!-- Header -->
+<div class="p-lg border-b border-white/5 flex flex-col items-start">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;" data-original-icon="admin_panel_settings">admin_panel_settings</span>
+<h1 class="font-headline-md text-headline-md text-primary-fixed uppercase tracking-tighter">CORE FIT</h1>
+</div>
+<div class="flex items-center gap-sm w-full bg-surface-container p-sm rounded-lg">
+<div class="w-10 h-10 rounded-full bg-surface-bright flex items-center justify-center overflow-hidden">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A futuristic, high-contrast avatar portrait of an administrator in a dark tech environment. The lighting is moody with subtle neon yellow rim lights outlining the silhouette. The person is wearing sleek, athletic tech-wear. The background is pure black." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWHGdYxEeokLzJb-Vf6xX72YE_yFeUhmssWAqRQ4XLRoa-gySISuIM6yEDf4mHUsTkfDSd0ypYJrIa8TEhjEZUsHuN8innVXme_-nSwivs7aZg4uPtxS496Nug1iuIwI9XEvPo1dE9BcVWD6TIlYXaP4zIDSaOomD_S-fv3vC5II05Q-406QbMSdQZ_flP4TyCI7uQnjbyrJHRh0mY6C8XjmJ0AYadsideWJyN7Ff-0Dm4yFnPBMJ6JQ">
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary">Admin Core</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-[10px]">Master Access</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 py-md px-sm flex flex-col gap-sm overflow-y-auto">
+<a class="text-on-surface-variant px-md py-sm flex items-center gap-sm hover:bg-white/5 transition-all cursor-pointer active:opacity-80 rounded-full" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="bg-primary-container text-on-primary-container rounded-full px-md py-sm flex items-center gap-sm cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-body-md text-body-md font-bold">Inventory</span>
+</a>
+<a class="text-on-surface-variant px-md py-sm flex items-center gap-sm hover:bg-white/5 transition-all cursor-pointer active:opacity-80 rounded-full" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-body-md text-body-md">Categories</span>
+</a>
+<a class="text-on-surface-variant px-md py-sm flex items-center gap-sm hover:bg-white/5 transition-all cursor-pointer active:opacity-80 rounded-full" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-body-md text-body-md">Orders</span>
+</a>
+<a class="text-on-surface-variant px-md py-sm flex items-center gap-sm hover:bg-white/5 transition-all cursor-pointer active:opacity-80 rounded-full" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Mobile Top App Bar -->
+<header class="md:hidden bg-background/80 backdrop-blur-xl fixed top-0 w-full z-50 border-b border-white/10 flat no shadows">
+<div class="flex items-center justify-between px-md py-sm w-full max-w-container-max mx-auto">
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors duration-300 active:scale-95 transition-transform p-sm">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary-fixed uppercase tracking-tighter">CORE FIT</h1>
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors duration-300 active:scale-95 transition-transform p-sm">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full md:pl-72 pt-20 md:pt-0 pb-32 md:pb-0 min-h-screen">
+<div class="max-w-4xl mx-auto p-md md:p-lg lg:p-xl space-y-lg">
+<!-- Page Header -->
+<div class="flex flex-col gap-base">
+<div class="flex items-center gap-sm text-on-surface-variant font-label-sm text-label-sm uppercase">
+<a class="hover:text-primary-fixed transition-colors" href="#">Inventory</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary-fixed">Edit Product</span>
+</div>
+<h2 class="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-primary tracking-tight">Add / Edit Product</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Manage product details, technical specifications, and inventory levels to ensure accurate catalog representation.</p>
+</div>
+<!-- Bento Grid Form Layout -->
+<form class="grid grid-cols-1 lg:grid-cols-12 gap-md md:gap-lg">
+<!-- Main Details Column (Left) -->
+<div class="lg:col-span-8 space-y-md md:space-y-lg">
+<!-- Basic Info Card -->
+<div class="glass-panel rounded-xl p-md md:p-lg space-y-md">
+<h3 class="font-label-sm text-label-sm text-primary-fixed uppercase border-b border-white/10 pb-sm mb-md">General Information</h3>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant block" for="productName">Product Name</label>
+<input class="w-full bg-surface-container-highest border border-white/10 rounded-lg px-md py-sm text-primary font-body-md text-body-md glow-input transition-all placeholder:text-on-surface-variant/50 placeholder:font-label-sm" id="productName" placeholder="Enter product name" type="text" value="CoreTech Performance Tee">
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant block" for="productDesc">Technical Description</label>
+<textarea class="w-full bg-surface-container-highest border border-white/10 rounded-lg px-md py-sm text-primary font-body-md text-body-md glow-input transition-all placeholder:text-on-surface-variant/50 placeholder:font-label-sm resize-none" id="productDesc" placeholder="Enter technical specifications and details..." rows="5">Engineered with advanced moisture-wicking fabric and strategic ventilation zones. Designed for high-intensity training, providing maximum mobility and thermal regulation.</textarea>
+</div>
+</div>
+<!-- Pricing & Inventory Card -->
+<div class="glass-panel rounded-xl p-md md:p-lg grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="md:col-span-2">
+<h3 class="font-label-sm text-label-sm text-primary-fixed uppercase border-b border-white/10 pb-sm mb-md">Pricing &amp; Inventory</h3>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant block" for="price">Price (USD)</label>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant font-label-sm">$</span>
+<input class="w-full bg-surface-container-highest border border-white/10 rounded-lg pl-xl pr-md py-sm text-primary font-body-md text-body-md glow-input transition-all placeholder:font-label-sm" id="price" step="0.01" type="number" value="85.00">
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant block" for="stock">Stock Quantity</label>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-[18px]">inventory</span>
+<input class="w-full bg-surface-container-highest border border-white/10 rounded-lg pl-xl pr-md py-sm text-primary font-body-md text-body-md glow-input transition-all placeholder:font-label-sm" id="stock" type="number" value="124">
+</div>
+</div>
+<div class="space-y-2 md:col-span-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant block" for="category">Category</label>
+<div class="relative">
+<select class="w-full bg-surface-container-highest border border-white/10 rounded-lg px-md py-sm text-primary font-body-md text-body-md glow-input transition-all appearance-none cursor-pointer" id="category">
+<option value="apparel">Apparel - Tops</option>
+<option value="equipment">Equipment</option>
+<option value="accessories">Accessories</option>
+</select>
+<span class="absolute right-md top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Media & Status Column (Right) -->
+<div class="lg:col-span-4 space-y-md md:space-y-lg">
+<!-- Status Card -->
+<div class="glass-panel rounded-xl p-md flex items-center justify-between border-l-4 border-l-primary-fixed">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-primary uppercase">Product Status</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Visible in store</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-14 h-7 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary-fixed peer-checked:after:bg-black border border-white/10"></div>
+</label>
+</div>
+<!-- Media Upload Card -->
+<div class="glass-panel rounded-xl p-md md:p-lg space-y-md">
+<h3 class="font-label-sm text-label-sm text-primary-fixed uppercase border-b border-white/10 pb-sm mb-md">Product Media</h3>
+<!-- Main Image Preview -->
+<div class="relative w-full aspect-square bg-surface-container-lowest rounded-lg border border-dashed border-white/20 overflow-hidden group flex items-center justify-center">
+<img alt="Product Image Preview" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-700" data-alt="A high-end studio product shot of a sleek, black athletic performance t-shirt. The shirt is displayed on an invisible mannequin against a pitch-black background. Dramatic, high-contrast rim lighting highlights the technical fabric texture. A subtle neon green graphic detail is visible on the chest." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNPstp5WUhZakA5gLwmeBNuvHFeJNPi41eoAtHp0-cqyc_xZvTK1tbZk3G__7A2ADc8D4dYBz4VrNV1x5NGQ9ra2ABTufTx-XFBW6kiAQmLT_Z87KZkHvwS46s4Ktltpl94W-hRNxJ0tmiSzo6czLOA_U7lJLGochc8zKmJC1JSHZjtweYEMIp00wORP9lSwH3ECgUWvmfIlLnErkWCFdjBdkUrs-OBaMZ-RtouWvtIjkoqE8g7WXAsQ">
+<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+<label class="cursor-pointer flex flex-col items-center gap-xs bg-surface-container p-md rounded-xl border border-white/10 hover:border-primary-fixed transition-colors" for="imageUpload">
+<span class="material-symbols-outlined text-primary-fixed" style="font-variation-settings: 'FILL' 1;">add_photo_alternate</span>
+<span class="font-label-sm text-label-sm text-primary">Replace Image</span>
+</label>
+<input accept="image/*" class="hidden" id="imageUpload" type="file">
+</div>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant">
+<span class="font-label-sm text-label-sm text-[10px]">Max size: 5MB</span>
+<span class="font-label-sm text-label-sm text-[10px]">Format: JPG, PNG</span>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-primary-fixed hover:bg-primary-fixed-dim text-on-primary font-headline-md text-headline-md py-md rounded-full transition-all active:scale-95 shadow-[0_0_20px_rgba(195,244,0,0.2)] hover:shadow-[0_0_30px_rgba(195,244,0,0.4)] flex items-center justify-center gap-sm mt-xl" type="button">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">save</span>
+                        SALVAR PRODUTO
+                    </button>
+</div>
+</form>
+</div>
+</main>
+<!-- Mobile Bottom Nav Bar -->
+<nav class="md:hidden bg-background/80 backdrop-blur-2xl fixed bottom-0 w-full z-50 rounded-t-lg border-t border-white/10 flat no shadows pb-safe">
+<div class="flex justify-around items-center w-full px-gutter py-sm">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-base hover:text-primary-fixed/80 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-sm text-label-sm mt-xs">Shop</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-base hover:text-primary-fixed/80 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">fitness_center</span>
+<span class="font-label-sm text-label-sm mt-xs">Training</span>
+</a>
+<!-- Active State on Mobile Admin View (assuming profile/admin context) -->
+<a class="flex flex-col items-center justify-center text-primary-fixed bg-primary-fixed/10 rounded-xl p-base active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm mt-xs">Profile</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-base hover:text-primary-fixed/80 active:scale-90 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="font-label-sm text-label-sm mt-xs">Cart</span>
+</a>
+</div>
+</nav>
+</body></html>

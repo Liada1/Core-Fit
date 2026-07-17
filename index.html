@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pt-BR" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CORE FIT</title>
+    <meta name="description" content="CORE FIT — equipamentos e vestuário de alta performance." />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#0d0d0d" />
+
+    <!-- Preview ao compartilhar o link no WhatsApp/Instagram/Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="CORE FIT" />
+    <meta property="og:title" content="CORE FIT — Equipamentos e vestuário de alta performance" />
+    <meta
+      property="og:description"
+      content="Tênis, roupas e acessórios de alta performance. 5% de desconto no Pix. Peça em minutos, receba em casa."
+    />
+    <meta
+      property="og:image"
+      content="https://lh3.googleusercontent.com/aida-public/AB6AXuCS1DtDhl7qNIGREYechkSCiwoBwQCDpOtVGG79kABvItzRb5SOuIIK5lpCFKuPiH3GcjrtKbJYW0yRhvFItawnvf82DQV31ARWnC_ObgEQiDhurTKFej6SUzQJkYT9INim6ip-0pVcESxHzDxoMm2z0l4tZ-d_lDg4E0J0ygHBx78se5VzuO3NuCvTwPc6I-lxKGDoj95LRioSF72lLRuGYz-t4SeV6sZvsccu6d_3vlE19Pp-zHKUMw"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CORE FIT — Equipamentos e vestuário de alta performance" />
+    <meta name="twitter:description" content="Tênis, roupas e acessórios de alta performance. 5% de desconto no Pix." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-background text-on-surface antialiased">
+    <div id="root"></div>
+    <!-- SDK do PagBank: criptografa o cartão no navegador (RSA, com a chave pública da loja) —
+         o número/CVV nunca chegam ao nosso servidor em texto puro, só o blob criptografado. -->
+    <script src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="pt-BR" class="dark" style=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Anybody:wght@600;700;800&amp;family=Hanken+Grotesk:wght@400&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#abd600",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "error": "#ffb4ab",
+                      "surface-container-lowest": "#0e0e0e",
+                      "surface-container-low": "#1b1b1c",
+                      "on-tertiary-container": "#636565",
+                      "surface-variant": "#353535",
+                      "inverse-surface": "#e5e2e1",
+                      "on-secondary-fixed-variant": "#474646",
+                      "on-background": "#e5e2e1",
+                      "on-primary-container": "#556d00",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "surface-dim": "#131313",
+                      "on-primary-fixed": "#161e00",
+                      "outline": "#8e9379",
+                      "surface-tint": "#abd600",
+                      "error-container": "#93000a",
+                      "on-error": "#690005",
+                      "on-tertiary": "#2f3131",
+                      "surface-container-highest": "#353535",
+                      "on-error-container": "#ffdad6",
+                      "secondary-container": "#4a4949",
+                      "on-secondary": "#313030",
+                      "background": "#131313",
+                      "primary": "#ffffff",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "surface": "#131313",
+                      "tertiary-fixed": "#e2e2e2",
+                      "tertiary-container": "#e2e2e2",
+                      "primary-fixed": "#c3f400",
+                      "primary-container": "#c3f400",
+                      "on-secondary-container": "#bab8b7",
+                      "surface-container-high": "#2a2a2a",
+                      "on-primary": "#283500",
+                      "outline-variant": "#444933",
+                      "surface-bright": "#393939",
+                      "tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#3c4d00",
+                      "secondary": "#c8c6c5",
+                      "surface-container": "#202020",
+                      "on-surface": "#e5e2e1",
+                      "secondary-fixed": "#e5e2e1",
+                      "inverse-primary": "#506600",
+                      "on-surface-variant": "#c4c9ac",
+                      "inverse-on-surface": "#303030"
+              },
+              "borderRadius": {
+                      "DEFAULT": "1rem",
+                      "lg": "2rem",
+                      "xl": "3rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "80px",
+                      "base": "8px",
+                      "xs": "4px",
+                      "md": "24px",
+                      "sm": "12px",
+                      "lg": "48px",
+                      "container-max": "1440px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Anybody"
+                      ],
+                      "label-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg": [
+                              "Anybody"
+                      ],
+                      "headline-lg-mobile": [
+                              "Anybody"
+                      ],
+                      "display-lg": [
+                              "Anybody"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "38px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "72px",
+                              {
+                                      "lineHeight": "76px",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    }catch(_e){}</script></head><body class="min-h-screen flex flex-col antialiased bg-black">
+
+    <!-- TopAppBar (Transactional - Content & Identity Only, Structural overrides for layout context) -->
+    <header class="backdrop-blur-xl text-primary-container dark:text-primary-container docked full-width top-0 sticky flex justify-between items-center px-gutter py-md w-full border-b border-outline-variant/20 z-50 bg-black">
+        <div class="flex items-center gap-sm">
+             <span class="material-symbols-outlined text-headline-md" data-icon="arrow_back" data-original-icon="arrow_back">arrow_back</span>
+             <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv9VyMOplov3IIwNIgFqtKv1Zu2WszlqCL9V_lpaixlkNueQ8Zqxh7b9If5cZ3aqYL9wylOxOe2W3kEQSnUqHI3RgENAbG4LCbMLz09e_eLWUxxqq_BXK-cM9UPl7v5muX7Qhv2s-WRABKYOpn_N6pm4J1q5gC-ElqXhgcOOyzNk-5mQ9b7J5nw2IH4bp4h1nZQIDIwHg5dWTlS8yyCu3Ov5U5l6m4rUzjHT-Cs0LdJ3rGqHVZeUlBhQtTxs3L9tV6c1I" alt="CORE FIT" class="h-8 w-auto object-contain">
+        </div>
+    </header>
+
+    <!-- Main Canvas -->
+    <main class="flex-grow w-full max-w-3xl mx-auto px-gutter py-xl">
+        
+        <div class="mb-lg">
+            <h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-primary mb-xs">Finalizar Pedido</h2>
+            <p class="text-body-md font-body-md text-on-surface-variant">Complete os dados abaixo para confirmar sua compra.</p>
+        </div>
+
+        <form class="space-y-lg">
+            
+            <!-- Bento Grid Structure for Forms -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                
+                <!-- Personal Info Section -->
+                <div class="glass-panel rounded-DEFAULT p-md space-y-md md:col-span-2">
+                    <h3 class="text-headline-md font-headline-md text-primary flex items-center gap-sm border-b border-outline-variant/20 pb-sm">
+                        <span class="material-symbols-outlined text-primary-fixed" data-icon="person">person</span>
+                        Dados Pessoais
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                        <div>
+                            <label class="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">Nome completo</label>
+                            <input type="text" class="w-full bg-surface-container-high border border-outline-variant/30 rounded-lg p-sm text-body-md font-body-md text-primary input-glow placeholder:text-outline" placeholder="Seu nome completo">
+                        </div>
+                        <div>
+                            <label class="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">Telefone (WhatsApp)</label>
+                            <div class="relative">
+                                <span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline-variant" data-icon="call">call</span>
+                                <input type="tel" class="w-full bg-surface-container-high border border-outline-variant/30 rounded-lg p-sm pl-10 text-body-md font-body-md text-primary input-glow placeholder:text-outline" placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Method Section -->
+                <div class="glass-panel rounded-DEFAULT p-md space-y-md">
+                    <h3 class="text-headline-md font-headline-md text-primary flex items-center gap-sm border-b border-outline-variant/20 pb-sm">
+                        <span class="material-symbols-outlined text-primary-fixed" data-icon="local_shipping">local_shipping</span>
+                        Entrega
+                    </h3>
+                    
+                    <div class="space-y-sm">
+                        <label class="flex items-center gap-sm p-sm rounded-lg border border-outline-variant/30 bg-surface-container-high hover:bg-surface-variant cursor-pointer transition-colors">
+                            <input type="radio" name="delivery_method" value="entrega" checked="">
+                            <span class="text-body-md font-body-md text-primary">Entrega no endereço</span>
+                        </label>
+                        <label class="flex items-center gap-sm p-sm rounded-lg border border-outline-variant/30 bg-surface-container-high hover:bg-surface-variant cursor-pointer transition-colors">
+                            <input type="radio" name="delivery_method" value="retirada">
+                            <span class="text-body-md font-body-md text-primary">Retirada na loja</span>
+                        </label>
+                    </div>
+
+                    <div class="pt-sm">
+                        <label class="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">Endereço Completo</label>
+                        <textarea class="w-full bg-surface-container-high border border-outline-variant/30 rounded-lg p-sm text-body-md font-body-md text-primary input-glow placeholder:text-outline h-32 resize-none" placeholder="Rua, Número, Bairro, Cidade, CEP..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Payment Section -->
+                <div class="glass-panel rounded-DEFAULT p-md space-y-md flex flex-col">
+                    <h3 class="text-headline-md font-headline-md text-primary flex items-center gap-sm border-b border-outline-variant/20 pb-sm">
+                        <span class="material-symbols-outlined text-primary-fixed" data-icon="payments">payments</span>
+                        Pagamento
+                    </h3>
+                    
+                    <div class="space-y-sm flex-grow">
+                        <label class="flex items-center gap-sm p-sm rounded-lg border border-outline-variant/30 bg-surface-container-high hover:bg-surface-variant cursor-pointer transition-colors">
+                            <input type="radio" name="payment_method" value="pix" checked="">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary-fixed" data-icon="qr_code">qr_code</span>
+                                <span class="text-body-md font-body-md text-primary">Pix (Desconto de 5%)</span>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-sm p-sm rounded-lg border border-outline-variant/30 bg-surface-container-high hover:bg-surface-variant cursor-pointer transition-colors">
+                            <input type="radio" name="payment_method" value="cartao">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary-fixed" data-icon="credit_card">credit_card</span>
+                                <span class="text-body-md font-body-md text-primary">Cartão de Crédito</span>
+                            </div>
+                        </label>
+                    </div>
+
+                     <!-- Order Summary Mini -->
+                     <div class="mt-auto pt-md border-t border-outline-variant/20">
+                        <div class="flex justify-between items-center text-body-md font-body-md text-on-surface-variant mb-xs">
+                            <span class="">Subtotal</span>
+                            <span class="">R$ 0,00</span>
+                        </div>
+                        <div class="flex justify-between items-center text-headline-md font-headline-md text-primary">
+                            <span class="">Total</span>
+                            <span class="text-primary-fixed">R$ 0,00</span>
+                        </div>
+                     </div>
+                </div>
+
+            </div>
+
+            <!-- Action Button -->
+            <div class="pt-lg pb-xl md:pb-lg flex justify-center sticky bottom-0 z-40 backdrop-blur-md px-gutter md:px-0 mx-[-24px] md:mx-0 py-md md:static md:bg-transparent md:backdrop-blur-none bg-black">
+                <button type="button" class="btn-volt w-full md:w-auto rounded-full py-md px-xl flex items-center justify-center gap-sm text-headline-md font-headline-md uppercase tracking-tight">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                        </svg></button></div></form></main></body></html>

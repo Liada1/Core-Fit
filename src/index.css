@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    background-color: theme('colors.background');
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-on-surface font-body-md antialiased;
+    font-family: 'Hanken Grotesk', sans-serif;
+  }
+
+  ::selection {
+    background-color: #ccff00;
+    color: #141a00;
+  }
+
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+
+  .material-symbols-outlined.fill {
+    font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+  }
+}
+
+@layer components {
+  /* Glassmorphism surface used for cards / panels across the app */
+  .glass-panel {
+    @apply bg-surface-container/60 backdrop-blur-xl border border-white/10;
+    box-shadow:
+      inset 1px 1px 0 0 rgba(255, 255, 255, 0.06),
+      inset -1px -1px 0 0 rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-card {
+    @apply glass-panel;
+  }
+
+  /* Primary pill CTA filled with volt green */
+  .btn-primary {
+    @apply bg-primary-container text-on-primary-container font-headline-md text-headline-md
+      rounded-full py-4 px-lg flex items-center justify-center gap-sm uppercase tracking-wide
+      transition-all duration-200 active:scale-95 hover:brightness-110
+      disabled:opacity-40 disabled:pointer-events-none;
+    box-shadow: 0 0 20px rgba(204, 255, 0, 0.25);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 30px rgba(204, 255, 0, 0.45);
+  }
+
+  /* Secondary ghost button */
+  .btn-secondary {
+    @apply bg-surface-container text-on-surface border border-outline-variant hover:border-primary-container
+      hover:text-primary-container font-headline-md text-headline-md rounded-full py-4 px-lg
+      flex items-center justify-center gap-sm uppercase tracking-wide transition-all duration-200 active:scale-95;
+  }
+
+  /* Text inputs / textareas / selects */
+  .field {
+    @apply w-full bg-surface-container-high border border-outline-variant/40 rounded-lg
+      px-4 py-3 text-on-surface font-body-md text-body-md placeholder:text-on-surface-variant/50
+      focus:outline-none transition-shadow duration-200;
+  }
+
+  .field:focus {
+    border-color: #ccff00;
+    box-shadow: 0 0 0 3px rgba(204, 255, 0, 0.2);
+  }
+
+  /* Category / filter chips */
+  .chip {
+    @apply bg-surface-container text-on-surface-variant rounded-full px-6 py-3 flex items-center gap-2
+      whitespace-nowrap text-label-sm font-label-sm hover:bg-surface-variant transition-colors cursor-pointer border border-transparent;
+  }
+
+  .chip-active {
+    @apply bg-primary-container text-on-primary-container;
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.25);
+  }
+
+  /* Size selector pill (used with a hidden radio input as sibling) */
+  .size-option {
+    @apply flex items-center justify-center min-w-[3rem] h-12 px-3 rounded-full border border-outline-variant/40
+      bg-surface-container text-on-surface font-label-sm text-label-sm cursor-pointer transition-all select-none;
+  }
+
+  .size-option.is-selected {
+    @apply border-primary-container text-on-primary-container bg-primary-container;
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
+  }
+
+  .size-option.is-disabled {
+    @apply opacity-40 cursor-not-allowed line-through;
+  }
+
+  /* Color swatch radio */
+  .color-swatch {
+    @apply w-9 h-9 rounded-full cursor-pointer border-2 border-transparent transition-all;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15);
+  }
+
+  .color-swatch.is-selected {
+    @apply border-primary-container scale-110;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 0 12px rgba(204, 255, 0, 0.5);
+  }
+
+  /* Stock level bar (admin) */
+  .stock-bar {
+    @apply h-2 bg-surface-container-highest rounded-full overflow-hidden;
+  }
+
+  .stock-bar-fill {
+    @apply h-full rounded-full transition-all;
+    background-color: #ccff00;
+    box-shadow: 0 0 10px rgba(204, 255, 0, 0.6);
+  }
+
+  .stock-bar-fill.is-low {
+    background-color: theme('colors.error');
+    box-shadow: 0 0 10px rgba(255, 180, 171, 0.5);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+}

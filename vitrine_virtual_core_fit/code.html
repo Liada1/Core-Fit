@@ -1,0 +1,300 @@
+<!DOCTYPE html><html lang="pt-BR" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#abd600",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-low": "#1b1b1c",
+                        "on-tertiary-container": "#636565",
+                        "surface-variant": "#353535",
+                        "inverse-surface": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-background": "#e5e2e1",
+                        "on-primary-container": "#556d00",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-dim": "#131313",
+                        "on-primary-fixed": "#161e00",
+                        "outline": "#8e9379",
+                        "surface-tint": "#abd600",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "on-tertiary": "#2f3131",
+                        "surface-container-highest": "#353535",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#4a4949",
+                        "on-secondary": "#313030",
+                        "background": "#131313",
+                        "primary": "#ffffff",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "surface": "#131313",
+                        "tertiary-fixed": "#e2e2e2",
+                        "tertiary-container": "#e2e2e2",
+                        "primary-fixed": "#c3f400",
+                        "primary-container": "#c3f400",
+                        "on-secondary-container": "#bab8b7",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary": "#283500",
+                        "outline-variant": "#444933",
+                        "surface-bright": "#393939",
+                        "tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#3c4d00",
+                        "secondary": "#c8c6c5",
+                        "surface-container": "#202020",
+                        "on-surface": "#e5e2e1",
+                        "secondary-fixed": "#e5e2e1",
+                        "inverse-primary": "#506600",
+                        "on-surface-variant": "#c4c9ac",
+                        "inverse-on-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "sm": "12px",
+                        "lg": "48px",
+                        "container-max": "1440px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": [
+                            "Hanken Grotesk"
+                        ],
+                        "headline-md": [
+                            "Anybody"
+                        ],
+                        "label-sm": [
+                            "JetBrains Mono"
+                        ],
+                        "body-lg": [
+                            "Hanken Grotesk"
+                        ],
+                        "headline-lg": [
+                            "Anybody"
+                        ],
+                        "headline-lg-mobile": [
+                            "Anybody"
+                        ],
+                        "display-lg": [
+                            "Anybody"
+                        ]
+                    },
+                    "fontSize": {
+                        "body-md": [
+                            "16px",
+                            {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-md": [
+                            "24px",
+                            {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                            }
+                        ],
+                        "label-sm": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "body-lg": [
+                            "18px",
+                            {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "headline-lg": [
+                            "40px",
+                            {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "headline-lg-mobile": [
+                            "32px",
+                            {
+                                "lineHeight": "38px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "display-lg": [
+                            "72px",
+                            {
+                                "lineHeight": "76px",
+                                "letterSpacing": "-0.04em",
+                                "fontWeight": "800"
+                            }
+                        ]
+                    }
+                },
+            },
+        }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="font-body-md text-body-md antialiased pb-32">
+<!-- TopAppBar -->
+<header class="bg-surface/80 backdrop-blur-xl dark:bg-surface/80 text-primary-container dark:text-primary-container docked full-width top-0 sticky border-b border-outline-variant/20 flex justify-between items-center px-gutter py-md w-full z-40">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+<img alt="CORE FIT logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4ItGMnjnsBR4-00aBd802mnj1vEQC_CbhkkdaxMFwfw1MHLxM5zv_rFNqQfoPp3wtWpwPnBl5zWq-ePHa2f0oOdkV2O_oFQ4CoqwSN3yKkuMJkiz5isOcReQ-DkEEf5DAwVGRgbKuG2jAHH5MNVRScqAgCj8cp4vTD1LBG3S5u2jRZBGyu6Dlqn7adO_mKFL0ilh0E1pBVIUZ7t8ooAwDnSST9Q5EcxOsF7prpbgXc1gXJM5dmgJr2-JsFAIjWETATd0">
+</div>
+<span class="text-headline-md font-headline-md font-extrabold text-primary-container dark:text-primary-container tracking-tighter">CORE FIT</span>
+</div>
+<button class="text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 transition-transform" aria-label="Search">
+<span class="material-symbols-outlined text-[28px]">search</span>
+</button>
+</header>
+<!-- Navigation / Categories (Desktop SideNav / Mobile Horizontal Scroll) -->
+<nav class="w-full overflow-x-auto px-gutter py-sm my-md flex md:hidden gap-sm no-scrollbar">
+<!-- Active Tab: Tênis (Inferring from the Zenith Runner content request) -->
+<button class="bg-surface-container dark:bg-surface-container text-on-surface-variant rounded-full px-6 py-3 flex items-center gap-2 whitespace-nowrap text-label-sm font-label-sm hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">male</span>
+            Homem
+        </button>
+<button class="bg-surface-container dark:bg-surface-container text-on-surface-variant rounded-full px-6 py-3 flex items-center gap-2 whitespace-nowrap text-label-sm font-label-sm hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">female</span>
+            Mulher
+        </button>
+<button class="bg-primary-container text-on-primary-container rounded-full px-6 py-3 flex items-center gap-2 whitespace-nowrap text-label-sm font-label-sm shadow-[0_0_15px_rgba(204,255,0,0.2)]">
+<span class="material-symbols-outlined text-[18px]" data-original-icon="sports_sneakers">sports_soccer</span>
+            Tênis
+        </button>
+<button class="bg-surface-container dark:bg-surface-container text-on-surface-variant rounded-full px-6 py-3 flex items-center gap-2 whitespace-nowrap text-label-sm font-label-sm hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">watch</span>
+            Acessórios
+        </button>
+</nav>
+<div class="flex flex-col md:flex-row container-max mx-auto px-0 md:px-gutter">
+<!-- Desktop SideNav -->
+<aside class="hidden md:flex w-64 flex-col bg-surface-container dark:bg-surface-container rounded-r-lg shadow-xl p-md gap-sm mt-lg sticky top-[100px] h-fit z-30">
+<h2 class="text-primary-container font-headline-md text-headline-md mb-4 px-4">CATEGORIES</h2>
+<button class="text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 flex items-center gap-3 text-label-sm font-label-sm transition-colors text-left w-full">
+<span class="material-symbols-outlined">male</span>
+                Homem
+            </button>
+<button class="text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 flex items-center gap-3 text-label-sm font-label-sm transition-colors text-left w-full">
+<span class="material-symbols-outlined">female</span>
+                Mulher
+            </button>
+<button class="bg-primary-container text-on-primary-container rounded-full px-4 py-3 flex items-center gap-3 text-label-sm font-label-sm shadow-[0_0_15px_rgba(204,255,0,0.2)] text-left w-full translate-x-1 transition-transform">
+<span class="material-symbols-outlined" data-original-icon="sports_sneakers">sports_soccer</span>
+                Tênis
+            </button>
+<button class="text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 flex items-center gap-3 text-label-sm font-label-sm transition-colors text-left w-full">
+<span class="material-symbols-outlined">watch</span>
+                Acessórios
+            </button>
+</aside>
+<!-- Main Content Grid -->
+<main class="flex-1 px-gutter py-md">
+<div class="mb-lg">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface">Lançamentos <span class="text-primary-container">Exclusivos</span></h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Elevando a performance ao extremo.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Hero Product Card (Zenith Runner) -->
+<article class="glass-panel rounded-[2rem] overflow-hidden flex flex-col md:col-span-2 lg:col-span-2 group relative">
+<div class="absolute top-4 left-4 z-10 bg-primary-container text-on-primary-fixed rounded-full px-3 py-1 font-label-sm text-label-sm font-bold tracking-widest shadow-[0_0_10px_rgba(204,255,0,0.5)]">NEW DROP</div>
+<div class="h-64 md:h-80 w-full relative overflow-hidden bg-surface-container-lowest">
+<div class="absolute inset-0 bg-gradient-to-t from-[#121212] to-transparent z-10"></div>
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out" data-alt="A highly detailed, ultra-realistic close-up studio shot of a futuristic high-tech running shoe named 'Zenith Runner'. The shoe features a sleek, aerodynamic design with woven dark grey and black textures, punctuated by vibrant neon volt green accents on the sole and laces. Dramatic rim lighting highlights the textures, set against a pure black background to emphasize the premium, aggressive fitness aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS1DtDhl7qNIGREYechkSCiwoBwQCDpOtVGG79kABvItzRb5SOuIIK5lpCFKuPiH3GcjrtKbJYW0yRhvFItawnvf82DQV31ARWnC_ObgEQiDhurTKFej6SUzQJkYT9INim6ip-0pVcESxHzDxoMm2z0l4tZ-d_lDg4E0J0ygHBx78se5VzuO3NuCvTwPc6I-lxKGDoj95LRioSF72lLRuGYz-t4SeV6sZvsccu6d_3vlE19Pp-zHKUMw">
+</div>
+<div class="p-6 flex flex-col justify-between flex-1 relative z-20 -mt-16">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Zenith Runner</h3>
+<p class="font-label-sm text-label-sm text-primary-container mt-1 uppercase tracking-wider">Tecnologia Air-Propulsion</p>
+</div>
+<div class="flex items-end justify-between mt-6">
+<span class="font-headline-md text-headline-md text-on-surface font-light">R$499,90</span>
+<button class="w-14 h-14 rounded-full bg-primary-container text-on-primary-fixed flex items-center justify-center hover:bg-primary-fixed hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(204,255,0,0.3)]">
+<span class="material-symbols-outlined text-[28px] font-bold">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Standard Product Card 1 -->
+<article class="glass-panel rounded-[2rem] overflow-hidden flex flex-col group">
+<div class="h-48 w-full relative overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A sleek, modern fitness smartwatch with a black titanium bezel and a perforated volt green silicone strap. The watch face displays dynamic, neon-colored biometric data rings. The lighting is moody and directional, casting long shadows on a dark, textured gym floor surface, fitting the high-contrast, premium tech-luxe brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHrNqp63rTGjmLAlrsD8OHRea36xaLp4RlfKB3qhMETpm0F0bQTTcN3Ls_gdAQBODShvXTVvXbSts67qXYaspH1WbFI_eabtS5gAOzNzPg35vlaYHrapE4YtzPFLJXPF1W_DED3pj6tj8nFN-f7lr-BSvXdsuDOX_EIiXhnoEM27_n3lu2NrxUxXe8hQDi7VymlYVDc5kUeZ01e6YIYWV3CCUdAlpvOdRu3M2FpCkZtQnpRjZhDEqN7Q">
+</div>
+<div class="p-5 flex flex-col flex-1">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface">Pulse Pro Watch</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Biometria Avançada</p>
+<div class="flex items-end justify-between mt-auto pt-4">
+<span class="font-headline-md text-[18px] text-on-surface font-light">R$899,00</span>
+<button class="w-10 h-10 rounded-full border border-outline hover:border-primary-container text-on-surface hover:text-primary-container flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Standard Product Card 2 -->
+<article class="glass-panel rounded-[2rem] overflow-hidden flex flex-col group">
+<div class="h-48 w-full relative overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A high-performance, dark charcoal compression shirt for men. The fabric has a subtle, technical geometric pattern woven into it, with reflective neon volt accents along the seams. Shot on an invisible mannequin against a deep black background with soft, diffused rim lighting to emphasize the muscular fit and premium fabric texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp2OWdjyRFvmNSG2J9A8pesc3Qy7-tITgrPb1treTtpc1LzW8kXrhMCHTDzBLcJaiuoZ2mcrIuUAI_-GpEWl8t73gABDhFTI9h_YYMnvw32BMyciTqWs-u3-T0pMr4fjrbOidrpLUr7Ii0KFsXzbVToa2qTwb4ux7EnOCxydS3BeJ97vWDq9jxJhbNFYqVlxEuSQTlNEW07Ctmcn3dHNQeJJvzoAZtzaVjva5k60AIFKo8U74YrynPUA">
+</div>
+<div class="p-5 flex flex-col flex-1">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface">Camiseta AeroFit</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Compressão Térmica</p>
+<div class="flex items-end justify-between mt-auto pt-4">
+<span class="font-headline-md text-[18px] text-on-surface font-light">R$159,90</span>
+<button class="w-10 h-10 rounded-full border border-outline hover:border-primary-container text-on-surface hover:text-primary-container flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Standard Product Card 3 -->
+<article class="glass-panel rounded-[2rem] overflow-hidden flex flex-col group md:col-span-2 lg:col-span-1">
+<div class="h-48 w-full relative overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out" data-alt="A minimalist, futuristic water bottle made of matte black stainless steel with a bold, vertical neon volt logo reading 'CORE'. The bottle is sitting on a dark, reflective surface in a gym setting. The lighting is cinematic, creating a stark contrast between the deep blacks and the glowing green accent, evoking a sense of aggressive, premium fitness gear." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfTWcmea8gYFJu1otbxB0CYbHRKjg58cVoOvZIbYDXhMJoBjyc3P7cWDiSqoEU3oqzD4xseE29KPuo5YW7QQKf4dhHSLEBQeNv768FA7T6f2dkGSpBUTgncup6yfwt7FTIIDOLIx9MZmbZagNQN2OdMppn08d9s4jQkHDy4vii4YCjKMWRVdkrH4clFkUsk8uWy-J6ggKoFAyIRD2ZoufVBzX9ptEQ1qSL8P9hnKmj_ARmLepp72anWw">
+</div>
+<div class="p-5 flex flex-col flex-1">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface">Garrafa Térmica Core</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Isolamento a Vácuo 24h</p>
+<div class="flex items-end justify-between mt-auto pt-4">
+<span class="font-headline-md text-[18px] text-on-surface font-light">R$129,90</span>
+<button class="w-10 h-10 rounded-full border border-outline hover:border-primary-container text-on-surface hover:text-primary-container flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container/90 backdrop-blur-2xl dark:bg-surface-container/90 text-primary-container dark:text-primary-container labels: text-label-sm font-label-sm docked full-width bottom-0 rounded-t-lg border-t border-outline-variant/10 shadow-lg fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-lg pb-safe h-xl pb-4 pt-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform">home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary-fixed-dim transition-colors group" href="#">
+<span class="material-symbols-outlined text-[24px] group-hover:-translate-y-1 transition-transform">storefront</span>
+</a>
+<!-- Active Tab: Shopping Cart (as requested in prompt "prominent shopping cart icon") -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full p-4 scale-110 -translate-y-4 shadow-[0_0_20px_rgba(204,255,0,0.4)] transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[28px]" data-weight="fill" style="font-variation-settings: 'FILL' 1;">shopping_cart</span>
+</a>
+</nav>
+<!-- Safe area spacing for mobile bottom nav -->
+<div class="h-24 md:hidden"></div>
+</body></html>

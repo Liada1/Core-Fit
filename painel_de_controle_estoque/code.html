@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="pt-BR" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;600;700;800&amp;family=Hanken+Grotesk:wght@400;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary": "#2f3131",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary": "#283500",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "primary-fixed-dim": "#abd600",
+                        "on-error": "#690005",
+                        "on-surface-variant": "#c4c9ac",
+                        "tertiary-container": "#e2e2e2",
+                        "tertiary": "#ffffff",
+                        "primary-container": "#c3f400",
+                        "surface-tint": "#abd600",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-bright": "#393939",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-secondary": "#313030",
+                        "secondary-container": "#4a4949",
+                        "on-secondary-container": "#bab8b7",
+                        "on-background": "#e5e2e1",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "inverse-on-surface": "#303030",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-fixed-variant": "#3c4d00",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "surface-variant": "#353535",
+                        "secondary-fixed": "#e5e2e1",
+                        "primary": "#ffffff",
+                        "outline": "#8e9379",
+                        "surface": "#131313",
+                        "surface-container-highest": "#353535",
+                        "surface-container": "#202020",
+                        "outline-variant": "#444933",
+                        "on-primary-fixed": "#161e00",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#556d00",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1b1b1c",
+                        "on-surface": "#e5e2e1",
+                        "error-container": "#93000a",
+                        "secondary": "#c8c6c5",
+                        "primary-fixed": "#c3f400",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "background": "#131313",
+                        "on-tertiary-container": "#636565",
+                        "surface-container-high": "#2a2a2a",
+                        "inverse-primary": "#506600"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "xl": "80px",
+                        "sm": "12px",
+                        "lg": "48px",
+                        "container-max": "1440px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "md": "24px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Anybody"],
+                        "headline-lg": ["Anybody"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Anybody"],
+                        "display-lg": ["Anybody"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "headline-lg-mobile": ["32px", { lineHeight: "38px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "headline-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "display-lg": ["72px", { lineHeight: "76px", letterSpacing: "-0.04em", fontWeight: "800" }]
+                    }
+                }
+            }
+        }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden flex">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:block bg-surface-container-lowest h-full w-72 rounded-r-lg border-r border-white/5 shadow-xl fixed left-0 top-0 z-40">
+<div class="p-md border-b border-white/5 flex flex-col items-start gap-sm">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-white/10">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A highly detailed close-up portrait of a fitness trainer looking determined, high contrast lighting with deep shadows and subtle neon green rim lighting, professional corporate headshot style in a dark tech environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDktbYT_aJNhX6Gv0XNCWe98NeSANqsE9h9ghLyzO0H-VfRYlxGHeXtZ5ebCxDhqA36q40PlcxZ-iJ8tc5xKhmRJxxQpegaoNsNV8NpuNv4FMtEedbfrhpYxvdTeJ5hsikUkj9Fl_tBjpImd9JgJhBAxk_cCGxGzGqWuPlDJJHCzgB6DrnCsi1n25tSJ8y-6yjMKLg7JoCDRK97BCnXNPvqn9JwTwHFXMrq55EKM0v6qloLjfR3b_EcWQ">
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary-fixed">Admin Core</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Master Access • CORE FIT HQ</p>
+</div>
+</div>
+<nav class="p-sm flex flex-col gap-xs mt-sm">
+<!-- Dashboard -->
+<a class="text-on-surface-variant px-md py-sm flex items-center gap-sm hover:bg-white/5 transition-all cursor-pointer active:opacity-80 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<!-- Inventory (Active) -->
+<a class="bg-primary-container text-on-primary-container rounded-full px-md py-sm flex items-center gap-sm cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-body-md text-body-md font-semibold">Inventory</span>
+</a>
+<!-- Categories -->
+<a class="text-on-surface-variant px-md py-sm flex items-center gap-sm hover:bg-white/5 transition-all cursor-pointer active:opacity-80 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span class="font-body-md text-body-md">Categories</span>
+</a>
+<!-- Orders -->
+<a class="text-on-surface-variant px-md py-sm flex items-center gap-sm hover:bg-white/5 transition-all cursor-pointer active:opacity-80 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-body-md text-body-md">Orders</span>
+</a>
+<!-- Settings -->
+<a class="text-on-surface-variant px-md py-sm flex items-center gap-sm hover:bg-white/5 transition-all cursor-pointer active:opacity-80 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-72 flex flex-col min-h-screen relative pb-24 md:pb-0">
+<!-- TopAppBar (Mobile & Desktop Header Area) -->
+<header class="bg-background/80 backdrop-blur-xl fixed top-0 w-full md:w-[calc(100%-18rem)] z-30 border-b border-white/10 md:border-none flex items-center justify-between px-md py-sm">
+<div class="flex items-center gap-sm md:hidden">
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary-fixed uppercase tracking-tighter">CORE FIT</h1>
+</div>
+<div class="hidden md:block">
+<h1 class="font-headline-lg text-headline-lg text-primary-fixed tracking-tighter">Inventory Management</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-highest border border-white/10 text-on-surface rounded-full py-2 pl-10 pr-4 font-label-sm focus:outline-none focus:border-primary-fixed focus:ring-1 focus:ring-primary-fixed transition-all w-64 placeholder-on-surface-variant" placeholder="Search products..." type="text">
+</div>
+<button class="relative text-on-surface-variant hover:text-primary-fixed transition-colors duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-[80px] px-md md:px-lg pb-xl max-w-container-max mx-auto w-full flex flex-col gap-lg">
+<!-- Low Stock Summary Widget (Glassmorphism) -->
+<section class="bg-surface-container-lowest/80 backdrop-blur-lg rounded-xl p-md border border-error/20 flex flex-col sm:flex-row items-center justify-between gap-md inner-glow-card relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-error/5 to-transparent pointer-events-none"></div>
+<div class="flex items-center gap-md z-10">
+<div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center text-error border border-error/30">
+<span class="material-symbols-outlined" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-error">Low Stock Alert</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">4 items require immediate restock</p>
+</div>
+</div>
+<button class="bg-surface-container border border-white/10 text-on-surface hover:text-primary-fixed font-label-sm px-md py-2 rounded-full transition-colors z-10">
+                    REVIEW ITEMS
+                </button>
+</section>
+<!-- Filters &-->
+<div class="flex flex-col sm:flex-row justify-between items-center gap-md">
+<div class="flex gap-sm overflow-x-auto pb-2 w-full sm:w-auto hide-scrollbar">
+<button class="bg-primary-container text-on-primary-container font-label-sm px-4 py-2 rounded-full whitespace-nowrap">All Categories</button>
+<button class="bg-surface-container text-on-surface-variant hover:text-primary-fixed border border-white/5 font-label-sm px-4 py-2 rounded-full whitespace-nowrap transition-colors">Equipment</button>
+<button class="bg-surface-container text-on-surface-variant hover:text-primary-fixed border border-white/5 font-label-sm px-4 py-2 rounded-full whitespace-nowrap transition-colors">Apparel</button>
+<button class="bg-surface-container text-on-surface-variant hover:text-primary-fixed border border-white/5 font-label-sm px-4 py-2 rounded-full whitespace-nowrap transition-colors">Supplements</button>
+</div>
+<div class="flex items-center gap-sm self-end sm:self-auto">
+<button class="text-on-surface-variant hover:text-primary-fixed p-2 rounded-full bg-surface-container border border-white/5 transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-fixed p-2 rounded-full bg-surface-container border border-white/5 transition-colors">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+</div>
+</div>
+<!-- Inventory List -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Product Card 1 -->
+<div class="bg-surface rounded-xl border border-white/5 inner-glow-card overflow-hidden group hover:border-white/10 transition-all">
+<div class="h-48 relative overflow-hidden bg-surface-container-lowest">
+<img alt="Pro Kettlebell" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek, high-tech black kettlebell sitting on a dark rubber gym floor, dramatic studio lighting with a sharp neon green rim light outlining the weight, highly detailed product photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjimAY6irPu9grwFzYECgR2f_ilDMlK_qj-8--9jJ7bC1l9bHwUDZyfgahuvBZ0pUmys1jxT5V0HhmDI2JABrVsBm7MWYP0hZYGQTdTynzplmiHUEK_vjJFOSa9CEX_Q5PpH37gfHYI1yzJuR4ZPbeMjGoI4g4Mpz54l9A8bmw2i1t-4JUOnrSGkRIvt5nIA4Vp3NZVnV_u1lvF7-jCRa-pblEh1VJ8WhXtSLuQ5zQ-Do83FGr6w8ngg">
+<div class="absolute top-sm right-sm bg-surface-container-highest/80 backdrop-blur-md px-2 py-1 rounded font-label-sm text-primary-fixed text-[10px] border border-white/10">EQUIPMENT</div>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Pro Kettlebell 24kg</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">$85.00</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-mono">SKU: CF-KB24-BLK</p>
+<div class="mt-sm">
+<div class="flex justify-between items-end mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Stock Level</span>
+<span class="font-label-sm text-label-sm text-primary-fixed">142 Units</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed neon-glow rounded-full w-[70%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface rounded-xl border border-white/5 inner-glow-card overflow-hidden group hover:border-white/10 transition-all">
+<div class="h-48 relative overflow-hidden bg-surface-container-lowest">
+<img alt="Core Tech Tee" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A premium black athletic training t-shirt neatly folded on a dark textured surface, illuminated by moody, high-contrast lighting with a subtle neon green accent light, showcasing the fabric texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0WkCL4TNcGgl6WZquClXH97GkNQYgC1YC60vY70HFDlcG5jfOjs7VQ1T3TGK8oQA6SHJKwW2Q0nv2QtH4qjwuyjvzGN_2mbPvumGpd2yOcO8IU8yQLniuw2FZt_5In7cT4GVvVuhi2NkmDfiA6215KZ_xzbK1e5V5Vrcpm15wX0Cq0Q-C2H84HiUz-P1XrkPW_4toWq6aeEH7SNpmWnMOjNl9vcrI0E_XQwfLu0gtPLX-TSsGJk73Fg">
+<div class="absolute top-sm right-sm bg-surface-container-highest/80 backdrop-blur-md px-2 py-1 rounded font-label-sm text-primary-fixed text-[10px] border border-white/10">APPAREL</div>
+</div>
+<div class="p-md flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Core Tech Tee</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">$45.00</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-mono">SKU: CF-AP-T01-M</p>
+<div class="mt-sm">
+<div class="flex justify-between items-end mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Stock Level</span>
+<span class="font-label-sm text-label-sm text-primary-fixed">89 Units</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed neon-glow rounded-full w-[45%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Product Card 3 (Low Stock) -->
+<div class="bg-surface rounded-xl border border-error/30 inner-glow-card overflow-hidden group transition-all relative">
+<div class="absolute inset-0 bg-error/5 pointer-events-none z-10"></div>
+<div class="h-48 relative overflow-hidden bg-surface-container-lowest">
+<img alt="Pre-Workout Surge" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A sleek, modern tub of pre-workout supplement powder, dark packaging with metallic accents, sitting on a glossy black table, dramatic spotlighting with a subtle red rim light indicating urgency, high-end commercial style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH-zfgF_IM1vR_INlbYs_WFnncQoGgXI27wGZ2XmKXXANiblMPT9xAsFouSSkrztKdOmByCWwRgSoIpHb5DDsZgstwc4gsvp2IBCyrDTw7NcOwu_aI9Wupc4C09jwGjBkJt4KqVMWxzy84J8BkRoDd_aJBV69MtM2WIrCwsGCPw-AHvD8ikABseVng5I-I9_Hiqt8lV0RQhTAwCL33Ay0pp4OoeGT59o54Jm9S2KEqGAYAotH7vn-FdQ">
+<div class="absolute top-sm right-sm bg-surface-container-highest/80 backdrop-blur-md px-2 py-1 rounded font-label-sm text-error text-[10px] border border-error/50">LOW STOCK</div>
+</div>
+<div class="p-md flex flex-col gap-sm relative z-20">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-headline-md text-on-surface">Surge Pre-Workout</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant">$39.99</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-mono">SKU: CF-SP-PRE-01</p>
+<div class="mt-sm">
+<div class="flex justify-between items-end mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Stock Level</span>
+<span class="font-label-sm text-label-sm text-error">12 Units</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error rounded-full w-[10%] shadow-[0_0_10px_rgba(255,180,171,0.5)]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating-->
+<button class="fixed bottom-32 md:bottom-12 right-md md:right-lg w-14 h-14 bg-primary-fixed text-on-primary-fixed rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(195,244,0,0.4)] hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-2xl font-bold">add</span>
+</button>
+</main>
+<!-- Bottom Navigation Bar (Mobile Only) -->
+<nav class="md:hidden bg-background/80 backdrop-blur-2xl fixed bottom-0 w-full z-50 rounded-t-lg border-t border-white/10 flex justify-around items-center px-gutter py-sm pb-safe h-[72px]">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-base" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-[10px] mt-1">Dash</span>
+</a>
+<!-- Inventory (Active) -->
+<a class="flex flex-col items-center justify-center text-primary-fixed bg-primary-fixed/10 rounded-xl p-base" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-sm text-[10px] mt-1">Stock</span>
+</a>
+<!-- Orders -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-base" href="#">
+<span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+<span class="font-label-sm text-[10px] mt-1">Orders</span>
+</a>
+<!-- Settings -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-base" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-sm text-[10px] mt-1">Settings</span>
+</a>
+</nav>
+<style>
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</body></html>

@@ -6,7 +6,14 @@
     <title>CORE FIT</title>
     <meta name="description" content="CORE FIT — equipamentos e vestuário de alta performance." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#0d0d0d" />
+
+    <!-- Instalável como app (Android/Chrome via manifest; iOS via as tags abaixo) -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="CORE FIT" />
 
     <!-- Preview ao compartilhar o link no WhatsApp/Instagram/Facebook -->
     <meta property="og:type" content="website" />
@@ -14,7 +21,7 @@
     <meta property="og:title" content="CORE FIT — Equipamentos e vestuário de alta performance" />
     <meta
       property="og:description"
-      content="Tênis, roupas e acessórios de alta performance. 5% de desconto no Pix. Peça em minutos, receba em casa."
+      content="Tênis, roupas e acessórios de alta performance. Peça em minutos pelo WhatsApp, receba em casa."
     />
     <meta
       property="og:image"
@@ -22,7 +29,7 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="CORE FIT — Equipamentos e vestuário de alta performance" />
-    <meta name="twitter:description" content="Tênis, roupas e acessórios de alta performance. 5% de desconto no Pix." />
+    <meta name="twitter:description" content="Tênis, roupas e acessórios de alta performance. Peça pelo WhatsApp." />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -37,9 +44,6 @@
   </head>
   <body class="bg-background text-on-surface antialiased">
     <div id="root"></div>
-    <!-- SDK do PagBank: criptografa o cartão no navegador (RSA, com a chave pública da loja) —
-         o número/CVV nunca chegam ao nosso servidor em texto puro, só o blob criptografado. -->
-    <script src="https://assets.pagseguro.com.br/checkout-sdk-js/rc/dist/browser/pagseguro.min.js"></script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

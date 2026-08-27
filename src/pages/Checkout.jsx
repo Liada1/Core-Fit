@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabaseClient'
 import { useCart } from '../context/CartContext.jsx'
 import { formatBRL } from '../utils/format'
 import { buildOrderMessage, buildWhatsAppLink } from '../utils/whatsapp'
-import { FRETE_PADRAO, DESCONTO_PIX } from '../config'
+import { FRETE_PADRAO } from '../config'
 
 export default function Checkout() {
   const { items, subtotal, clearCart } = useCart()
@@ -14,18 +14,10 @@ export default function Checkout() {
   const [telefone, setTelefone] = useState('')
   const [formaEntrega, setFormaEntrega] = useState('entrega')
   const [endereco, setEndereco] = useState('')
-  const [formaPagamento, setFormaPagamento] = useState('pix')
+  const [observacoes, setObservacoes] = useState('')
   const [enviando, setEnviando] = useState(false)
   const [erro, setErro] = useState(null)
   const [sucesso, setSucesso] = useState(null)
-  const [statusPix, setStatusPix] = useState('pendente')
-
-  const [cpf, setCpf] = useState('')
-  const [numeroCartao, setNumeroCartao] = useState('')
-  const [nomeCartao, setNomeCartao] = useState('')
-  const [validadeMes, setValidadeMes] = useState('')
-  const [validadeAno, setValidadeAno] = useState('')
-  const [cvv, setCvv] = useState('')
 
   useEffect(() => {
     if (items.length === 0 && !sucesso) {
@@ -34,71 +26,8 @@ export default function Checkout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items.length, sucesso])
 
-  useEffect(() => {
-    if (!sucesso?.pix || statusPix !== 'pendente') return
-
-    const intervalo = setInterval(async () => {
-      const { data } = await supabase.rpc('consultar_status_pagamento', { p_pedido_id: sucesso.pedidoId })
-      if (data && data !== 'pendente') {
-        setStatusPix(data)
-      }
-    }, 4000)
-
-    return () => clearInterval(intervalo)
-  }, [sucesso, statusPix])
-
   const frete = formaEntrega === 'entrega' ? FRETE_PADRAO : 0
-  const desconto = formaPagamento === 'pix' ? (subtotal + frete) * DESCONTO_PIX : 0
-  const total = subtotal + frete - desconto
-
-  async function gerarCobrancaPix(pedidoId) {
-    const { data, error: pixError } = await supabase.functions.invoke('criar-cobranca-pix', {
-      body: { pedido_id: pedidoId },
-    })
-
-    if (pixError || data?.error) {
-      setSucesso((atual) => ({ ...atual, pix: null, erroPix: data?.error ?? pixError.message }))
-      return
-    }
-
-    setSucesso((atual) => ({ ...atual, pix: data, erroPix: null }))
-    setStatusPix('pendente')
-  }
-
-  async function processarCartao(pedidoId) {
-    try {
-      const { data: chave, error: chaveError } = await supabase.functions.invoke('chave-publica-cartao')
-      if (chaveError || chave?.error) throw new Error(chave?.error ?? chaveError.message)
-
-      const resultado = window.PagSeguro.encryptCard({
-        publicKey: chave.public_key,
-        holder: nomeCartao.trim(),
-        number: numeroCartao.replace(/\D/g, ''),
-        expMonth: validadeMes.trim(),
-        expYear: validadeAno.trim(),
-        securityCode: cvv.trim(),
-      })
-
-      if (resultado.hasErrors) {
-        throw new Error(resultado.errors?.[0]?.message ?? 'Dados do cartão inválidos.')
-      }
-
-      const { data, error: cobrancaError } = await supabase.functions.invoke('criar-cobranca-cartao', {
-        body: {
-          pedido_id: pedidoId,
-          encrypted_card: resultado.encryptedCard,
-          holder_name: nomeCartao.trim(),
-          holder_tax_id: cpf.replace(/\D/g, ''),
-        },
-      })
-
-      if (cobrancaError || data?.error) throw new Error(data?.error ?? cobrancaError.message)
-
-      setSucesso((atual) => ({ ...atual, cartao: data, erroCartao: null }))
-    } catch (err) {
-      setSucesso((atual) => ({ ...atual, cartao: null, erroCartao: err.message }))
-    }
-  }
+  const total = subtotal + frete
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -110,13 +39,6 @@ export default function Checkout() {
     }
     if (formaEntrega === 'entrega' && !endereco.trim()) {
       setErro('Informe o endereço de entrega.')
-      return
-    }
-    if (
-      formaPagamento === 'cartao' &&
-      (!cpf.trim() || !numeroCartao.trim() || !nomeCartao.trim() || !validadeMes.trim() || !validadeAno.trim() || !cvv.trim())
-    ) {
-      setErro('Preencha todos os dados do cartão.')
       return
     }
 
@@ -132,23 +54,29 @@ export default function Checkout() {
       preco_unitario: item.preco,
     }))
 
-    const { data: pedidoId, error } = await supabase.rpc('criar_pedido', {
-      payload: {
-        cliente: cliente.trim(),
-        telefone: telefone.trim(),
-        itens: itensPayload,
-        total,
-        forma_entrega: formaEntrega,
-        endereco: formaEntrega === 'entrega' ? endereco.trim() : null,
-        forma_pagamento: formaPagamento,
-      },
-    })
-
-    setEnviando(false)
-
-    if (error) {
-      setErro(error.message)
-      return
+    // Registra o pedido no banco (e baixa o estoque) quando possível. Se falhar,
+    // não bloqueia o cliente — o pedido segue pelo WhatsApp mesmo assim.
+    let pedidoId = null
+    try {
+      const { data, error } = await supabase.rpc('criar_pedido', {
+        payload: {
+          cliente: cliente.trim(),
+          telefone: telefone.trim(),
+          itens: itensPayload,
+          total,
+          forma_entrega: formaEntrega,
+          endereco: formaEntrega === 'entrega' ? endereco.trim() : null,
+        },
+      })
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.warn('[criar_pedido] não foi possível registrar o pedido:', error.message)
+      } else {
+        pedidoId = data
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn('[criar_pedido] erro inesperado:', err)
     }
 
     const mensagem = buildOrderMessage({
@@ -157,169 +85,41 @@ export default function Checkout() {
       telefone: telefone.trim(),
       itens: itensPayload,
       subtotal,
+      frete,
       total,
       formaEntrega,
-      endereco,
-      formaPagamento,
+      endereco: endereco.trim(),
+      observacoes: observacoes.trim(),
     })
     const link = buildWhatsAppLink(mensagem)
 
     clearCart()
+    setEnviando(false)
+    setSucesso({ pedidoId, link, total })
 
-    if (formaPagamento === 'pix') {
-      setSucesso({ pedidoId, link, total, pix: null, erroPix: null, carregandoPix: true })
-      await gerarCobrancaPix(pedidoId)
-      setSucesso((atual) => ({ ...atual, carregandoPix: false }))
-    } else {
-      setSucesso({ pedidoId, link, total, cartao: null, erroCartao: null, processandoCartao: true })
-      await processarCartao(pedidoId)
-      setSucesso((atual) => ({ ...atual, processandoCartao: false }))
-    }
-  }
-
-  if (sucesso && formaPagamento === 'pix') {
-    const pedidoCurto = sucesso.pedidoId.slice(0, 8).toUpperCase()
-
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-md px-gutter text-center bg-black py-xl">
-        {statusPix === 'pago' ? (
-          <>
-            <span className="material-symbols-outlined fill text-primary-container text-6xl">check_circle</span>
-            <h1 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
-              Pagamento confirmado!
-            </h1>
-            <p className="text-on-surface-variant font-body-md max-w-md">
-              Recebemos seu Pix. O pedido #{pedidoCurto} já está sendo preparado.
-            </p>
-          </>
-        ) : (
-          <>
-            <h1 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
-              Escaneie para pagar
-            </h1>
-            <p className="text-on-surface-variant font-body-md max-w-md">
-              Pedido #{pedidoCurto} — {formatBRL(sucesso.total)}. Assim que o pagamento cair, confirmamos aqui
-              automaticamente.
-            </p>
-
-            {sucesso.carregandoPix && (
-              <span className="material-symbols-outlined text-primary-container text-4xl animate-spin">
-                progress_activity
-              </span>
-            )}
-
-            {sucesso.pix && (
-              <>
-                <div className="glass-panel rounded-xl p-md">
-                  <img src={sucesso.pix.qr_image_url} alt="QR Code Pix" className="w-64 h-64 object-contain" />
-                </div>
-                <button
-                  type="button"
-                  onClick={() => navigator.clipboard.writeText(sucesso.pix.qr_text)}
-                  className="btn-primary"
-                >
-                  <span className="material-symbols-outlined">content_copy</span>
-                  Copiar código Pix
-                </button>
-                {statusPix === 'falhou' ? (
-                  <p className="text-error font-label-sm text-label-sm">
-                    O pagamento não foi confirmado. Gere um novo código ou combine pelo WhatsApp.
-                  </p>
-                ) : (
-                  <div className="flex items-center gap-sm text-on-surface-variant font-label-sm text-label-sm">
-                    <span className="material-symbols-outlined text-lg animate-spin">progress_activity</span>
-                    Aguardando pagamento...
-                  </div>
-                )}
-              </>
-            )}
-
-            {sucesso.erroPix && !sucesso.carregandoPix && (
-              <div className="glass-panel rounded-lg p-md max-w-md">
-                <p className="text-error font-label-sm text-label-sm mb-sm">
-                  Não conseguimos gerar o QR Code Pix agora ({sucesso.erroPix}).
-                </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSucesso((atual) => ({ ...atual, carregandoPix: true }))
-                    gerarCobrancaPix(sucesso.pedidoId).then(() =>
-                      setSucesso((atual) => ({ ...atual, carregandoPix: false }))
-                    )
-                  }}
-                  className="btn-primary"
-                >
-                  Tentar novamente
-                </button>
-              </div>
-            )}
-
-            <a
-              href={sucesso.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary-container font-label-sm text-label-sm underline mt-sm"
-            >
-              Ou combinar pelo WhatsApp
-            </a>
-          </>
-        )}
-
-        <Link to="/" className="text-primary-container font-label-sm text-label-sm underline mt-sm">
-          Voltar à loja
-        </Link>
-      </div>
-    )
+    // Abre o WhatsApp já com o pedido montado.
+    window.open(link, '_blank', 'noopener,noreferrer')
   }
 
   if (sucesso) {
-    const pedidoCurto = sucesso.pedidoId.slice(0, 8).toUpperCase()
+    const pedidoCurto = sucesso.pedidoId ? `#${sucesso.pedidoId.slice(0, 8).toUpperCase()}` : null
 
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-md px-gutter text-center bg-black py-xl">
-        {sucesso.processandoCartao && (
-          <span className="material-symbols-outlined text-primary-container text-4xl animate-spin">
-            progress_activity
-          </span>
-        )}
+        <span className="material-symbols-outlined fill text-primary-container text-6xl">chat</span>
+        <h1 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
+          Pedido pronto!
+        </h1>
+        <p className="text-on-surface-variant font-body-md max-w-md">
+          {pedidoCurto ? `Pedido ${pedidoCurto} — ` : ''}
+          {formatBRL(sucesso.total)}. Se o WhatsApp não abriu automaticamente, toque no botão abaixo para enviar seu
+          pedido ao vendedor e combinar o pagamento.
+        </p>
 
-        {sucesso.cartao?.aprovado && (
-          <>
-            <span className="material-symbols-outlined fill text-primary-container text-6xl">check_circle</span>
-            <h1 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">
-              Pagamento aprovado!
-            </h1>
-            <p className="text-on-surface-variant font-body-md max-w-md">
-              Pedido #{pedidoCurto} — {formatBRL(sucesso.total)} no cartão
-              {sucesso.cartao.bandeira ? ` (${sucesso.cartao.bandeira} final ${sucesso.cartao.ultimos_digitos})` : ''}.
-            </p>
-          </>
-        )}
-
-        {sucesso.cartao && !sucesso.cartao.aprovado && (
-          <div className="glass-panel rounded-lg p-md max-w-md">
-            <p className="text-error font-label-sm text-label-sm mb-sm">
-              Pagamento recusado{sucesso.cartao.mensagem ? `: ${sucesso.cartao.mensagem}` : '.'} Nenhum valor foi
-              cobrado.
-            </p>
-            <a href={sucesso.link} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              <span className="material-symbols-outlined">chat</span>
-              Combinar pelo WhatsApp
-            </a>
-          </div>
-        )}
-
-        {sucesso.erroCartao && !sucesso.processandoCartao && (
-          <div className="glass-panel rounded-lg p-md max-w-md">
-            <p className="text-error font-label-sm text-label-sm mb-sm">
-              Não conseguimos processar o cartão agora ({sucesso.erroCartao}).
-            </p>
-            <a href={sucesso.link} target="_blank" rel="noopener noreferrer" className="btn-primary">
-              <span className="material-symbols-outlined">chat</span>
-              Combinar pelo WhatsApp
-            </a>
-          </div>
-        )}
+        <a href={sucesso.link} target="_blank" rel="noopener noreferrer" className="btn-primary">
+          <span className="material-symbols-outlined">chat</span>
+          Finalizar via WhatsApp
+        </a>
 
         <Link to="/" className="text-primary-container font-label-sm text-label-sm underline mt-sm">
           Voltar à loja
@@ -342,7 +142,9 @@ export default function Checkout() {
           <h2 className="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-primary mb-xs">
             Finalizar Pedido
           </h2>
-          <p className="text-body-md font-body-md text-on-surface-variant">Complete os dados abaixo para confirmar sua compra.</p>
+          <p className="text-body-md font-body-md text-on-surface-variant">
+            Preencha seus dados. O pedido é enviado ao vendedor pelo WhatsApp e o pagamento é combinado por lá.
+          </p>
         </div>
 
         <form className="space-y-lg" onSubmit={handleSubmit}>
@@ -378,12 +180,12 @@ export default function Checkout() {
               </div>
             </div>
 
-            <div className="glass-panel rounded p-md space-y-md">
+            <div className="glass-panel rounded p-md space-y-md md:col-span-2">
               <h3 className="text-headline-md font-headline-md text-primary flex items-center gap-sm border-b border-outline-variant/20 pb-sm">
                 <span className="material-symbols-outlined text-primary-fixed">local_shipping</span>
                 Entrega
               </h3>
-              <div className="space-y-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-sm">
                 <label className="flex items-center gap-sm p-sm rounded-lg border border-outline-variant/30 bg-surface-container-high hover:bg-surface-variant cursor-pointer transition-colors">
                   <input
                     type="radio"
@@ -416,131 +218,25 @@ export default function Checkout() {
                   />
                 </div>
               )}
+              <div className="pt-sm">
+                <label className="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">
+                  Observações (opcional)
+                </label>
+                <textarea
+                  value={observacoes}
+                  onChange={(e) => setObservacoes(e.target.value)}
+                  className="field h-24 resize-none"
+                  placeholder="Ponto de referência, horário para entrega, etc."
+                />
+              </div>
             </div>
 
-            <div className="glass-panel rounded p-md space-y-md flex flex-col">
+            <div className="glass-panel rounded p-md space-y-md md:col-span-2">
               <h3 className="text-headline-md font-headline-md text-primary flex items-center gap-sm border-b border-outline-variant/20 pb-sm">
-                <span className="material-symbols-outlined text-primary-fixed">payments</span>
-                Pagamento
+                <span className="material-symbols-outlined text-primary-fixed">receipt_long</span>
+                Resumo
               </h3>
-              <div className="space-y-sm flex-grow">
-                <label className="flex items-center gap-sm p-sm rounded-lg border border-outline-variant/30 bg-surface-container-high hover:bg-surface-variant cursor-pointer transition-colors">
-                  <input
-                    type="radio"
-                    name="forma_pagamento"
-                    checked={formaPagamento === 'pix'}
-                    onChange={() => setFormaPagamento('pix')}
-                  />
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary-fixed">qr_code</span>
-                    <span className="text-body-md font-body-md text-primary">Pix (Desconto de 5%)</span>
-                  </div>
-                </label>
-                <label className="flex items-center gap-sm p-sm rounded-lg border border-outline-variant/30 bg-surface-container-high hover:bg-surface-variant cursor-pointer transition-colors">
-                  <input
-                    type="radio"
-                    name="forma_pagamento"
-                    checked={formaPagamento === 'cartao'}
-                    onChange={() => setFormaPagamento('cartao')}
-                  />
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary-fixed">credit_card</span>
-                    <span className="text-body-md font-body-md text-primary">Cartão de Crédito</span>
-                  </div>
-                </label>
-
-                {formaPagamento === 'cartao' && (
-                  <div className="space-y-sm pt-sm">
-                    <div>
-                      <label className="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">
-                        CPF do titular
-                      </label>
-                      <input
-                        type="text"
-                        value={cpf}
-                        onChange={(e) => setCpf(e.target.value)}
-                        className="field"
-                        placeholder="000.000.000-00"
-                        inputMode="numeric"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">
-                        Número do cartão
-                      </label>
-                      <input
-                        type="text"
-                        value={numeroCartao}
-                        onChange={(e) => setNumeroCartao(e.target.value)}
-                        className="field"
-                        placeholder="0000 0000 0000 0000"
-                        inputMode="numeric"
-                        autoComplete="cc-number"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">
-                        Nome impresso no cartão
-                      </label>
-                      <input
-                        type="text"
-                        value={nomeCartao}
-                        onChange={(e) => setNomeCartao(e.target.value)}
-                        className="field"
-                        placeholder="Como está no cartão"
-                        autoComplete="cc-name"
-                      />
-                    </div>
-                    <div className="grid grid-cols-3 gap-sm">
-                      <div>
-                        <label className="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">Mês</label>
-                        <input
-                          type="text"
-                          value={validadeMes}
-                          onChange={(e) => setValidadeMes(e.target.value)}
-                          className="field"
-                          placeholder="MM"
-                          maxLength={2}
-                          inputMode="numeric"
-                          autoComplete="cc-exp-month"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">Ano</label>
-                        <input
-                          type="text"
-                          value={validadeAno}
-                          onChange={(e) => setValidadeAno(e.target.value)}
-                          className="field"
-                          placeholder="AAAA"
-                          maxLength={4}
-                          inputMode="numeric"
-                          autoComplete="cc-exp-year"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-label-sm font-label-sm text-on-surface-variant mb-xs uppercase">CVV</label>
-                        <input
-                          type="text"
-                          value={cvv}
-                          onChange={(e) => setCvv(e.target.value)}
-                          className="field"
-                          placeholder="000"
-                          maxLength={4}
-                          inputMode="numeric"
-                          autoComplete="cc-csc"
-                        />
-                      </div>
-                    </div>
-                    <p className="text-on-surface-variant/70 font-label-sm text-label-sm flex items-center gap-1">
-                      <span className="material-symbols-outlined text-sm">lock</span>
-                      O cartão é criptografado no seu navegador antes de sair — nunca passa pelo nosso servidor.
-                    </p>
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-auto pt-md border-t border-outline-variant/20 space-y-1">
+              <div className="space-y-1">
                 <div className="flex justify-between items-center text-body-md font-body-md text-on-surface-variant">
                   <span>Subtotal</span>
                   <span>{formatBRL(subtotal)}</span>
@@ -551,17 +247,15 @@ export default function Checkout() {
                     {frete === 0 ? 'Grátis' : formatBRL(frete)}
                   </span>
                 </div>
-                {desconto > 0 && (
-                  <div className="flex justify-between items-center text-body-md font-body-md text-primary-container">
-                    <span>Desconto Pix</span>
-                    <span>-{formatBRL(desconto)}</span>
-                  </div>
-                )}
                 <div className="flex justify-between items-center text-headline-md font-headline-md text-primary pt-1">
                   <span>Total</span>
                   <span className="text-primary-fixed">{formatBRL(total)}</span>
                 </div>
               </div>
+              <p className="text-on-surface-variant/70 font-label-sm text-label-sm flex items-center gap-1">
+                <span className="material-symbols-outlined text-sm">lock</span>
+                Nenhum pagamento é feito no site. O vendedor confirma valores e forma de pagamento pelo WhatsApp.
+              </p>
             </div>
           </div>
 
@@ -571,12 +265,8 @@ export default function Checkout() {
 
           <div className="pt-lg pb-xl md:pb-lg flex justify-center sticky bottom-0 z-40 backdrop-blur-md px-gutter md:px-0 mx-[-24px] md:mx-0 py-md md:static md:bg-transparent md:backdrop-blur-none bg-black">
             <button type="submit" disabled={enviando} className="btn-primary w-full md:w-auto">
-              <span className="material-symbols-outlined">{formaPagamento === 'pix' ? 'qr_code' : 'credit_card'}</span>
-              {enviando
-                ? 'Enviando...'
-                : formaPagamento === 'pix'
-                  ? 'Confirmar e gerar QR Code Pix'
-                  : 'Confirmar e pagar com cartão'}
+              <span className="material-symbols-outlined">chat</span>
+              {enviando ? 'Preparando pedido...' : 'Finalizar via WhatsApp'}
             </button>
           </div>
         </form>

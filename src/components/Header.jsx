@@ -18,7 +18,7 @@ export default function Header({ searchValue, onSearchChange }) {
   return (
     <header className="bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 sticky top-0 w-full z-40">
       <div className="bg-primary-container text-on-primary-container text-center py-1 font-label-sm text-label-sm font-bold tracking-widest uppercase">
-        Frete grátis em todo o site · 5% OFF no Pix
+        Frete grátis em todo o site · Peça pelo WhatsApp
       </div>
       <div className="flex justify-between items-center w-full max-w-container-max mx-auto gap-sm px-gutter py-md">
         <Link to="/" className="flex items-center gap-sm shrink-0">

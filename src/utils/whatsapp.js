@@ -1,7 +1,18 @@
 import { WHATSAPP_NUMBER, STORE_NAME } from '../config'
 import { formatBRL } from './format'
 
-export function buildOrderMessage({ pedidoId, cliente, telefone, itens, subtotal, total, formaEntrega, endereco, formaPagamento }) {
+export function buildOrderMessage({
+  pedidoId,
+  cliente,
+  telefone,
+  itens,
+  subtotal,
+  frete = 0,
+  total,
+  formaEntrega,
+  endereco,
+  observacoes,
+}) {
   const linhas = []
 
   linhas.push(`*NOVO PEDIDO — ${STORE_NAME}*`)
@@ -18,17 +29,22 @@ export function buildOrderMessage({ pedidoId, cliente, telefone, itens, subtotal
 
   linhas.push('')
   linhas.push(`Subtotal: ${formatBRL(subtotal)}`)
+  linhas.push(`Entrega: ${frete === 0 ? 'Grátis' : formatBRL(frete)}`)
   linhas.push(`*Total: ${formatBRL(total)}*`)
   linhas.push('')
   linhas.push('*Dados do cliente:*')
   linhas.push(`Nome: ${cliente}`)
   linhas.push(`Telefone: ${telefone}`)
   linhas.push('')
-  linhas.push(`Entrega: ${formaEntrega === 'retirada' ? 'Retirada na loja' : 'Entrega no endereço'}`)
+  linhas.push(`Forma de entrega: ${formaEntrega === 'retirada' ? 'Retirada na loja' : 'Entrega no endereço'}`)
   if (formaEntrega === 'entrega' && endereco) {
     linhas.push(`Endereço: ${endereco}`)
   }
-  linhas.push(`Pagamento: ${formaPagamento === 'pix' ? 'Pix' : 'Cartão de Crédito'}`)
+  if (observacoes) {
+    linhas.push(`Observações: ${observacoes}`)
+  }
+  linhas.push('')
+  linhas.push('Pagamento: a combinar pelo WhatsApp.')
 
   return linhas.join('\n')
 }

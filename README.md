@@ -53,12 +53,18 @@ npm run dev
 
 Acesse `http://localhost:5173`. O painel administrativo fica em `http://localhost:5173/admin/login`.
 
-## 6. Ativar Pix e cartão automáticos via PagBank (opcional)
+## 6. Pagamento
 
-Por padrão, Pix e cartão no checkout são só um rótulo enviado no resumo do WhatsApp — o pagamento
-é combinado manualmente. Pra processar de verdade (QR Code Pix com confirmação automática, e
-cobrança de cartão de verdade), siga os passos abaixo. **O token do PagBank nunca deve ir para o
-`.env`/frontend** — ele fica só nas Edge Functions do Supabase, guardado como secret.
+**O checkout não processa pagamento no site.** O cliente preenche os dados (nome, telefone, forma de
+entrega e endereço) e clica em **Finalizar via WhatsApp** — o pedido é registrado no banco (baixando
+o estoque via `criar_pedido()`) e o navegador abre o WhatsApp da loja já com o resumo completo do
+pedido. Valor e forma de pagamento são combinados na conversa.
+
+> As Edge Functions do PagBank (`criar-cobranca-pix`, `criar-cobranca-cartao` etc.) e as migrations
+> `migration_pagbank_pix.sql` / `migration_2_estoque_pix.sql` continuam no repositório, mas **não estão
+> ligadas ao frontend**. O histórico abaixo fica só como referência para quem quiser religar o
+> pagamento automático no futuro. **O token do PagBank nunca deve ir para o `.env`/frontend** — ele
+> fica só nas Edge Functions do Supabase, guardado como secret.
 
 1. No **Supabase Dashboard > SQL Editor**, rode, nesta ordem:
    - `supabase/migration_pagbank_pix.sql` (status de pagamento + `consultar_status_pagamento()`)
@@ -122,9 +128,24 @@ Edite `src/config.js` e troque `WHATSAPP_NUMBER` pelo número real da loja (form
 só dígitos: DDI+DDD+número, ex: `5511999999999`). Esse é o número que recebe o resumo de cada pedido
 finalizado via `wa.me`.
 
-Outras constantes úteis no mesmo arquivo: `FRETE_PADRAO` (valor fixo de frete), `DESCONTO_PIX`
-(desconto aplicado ao escolher Pix) e `LIMITE_ESTOQUE_BAIXO` (a partir de quantas unidades o painel
-admin alerta "estoque baixo").
+Outras constantes úteis no mesmo arquivo: `FRETE_PADRAO` (valor fixo de frete) e
+`LIMITE_ESTOQUE_BAIXO` (a partir de quantas unidades o painel admin alerta "estoque baixo").
+
+## 8. App instalável (PWA)
+
+A loja é um **PWA**: dá para instalar na tela inicial do celular ou do computador e abrir em tela
+cheia, como um aplicativo. Isso vem de `vite-plugin-pwa` (configurado em `vite.config.js`), do
+`public/manifest` gerado no build e dos ícones em `public/pwa-*.png`.
+
+- **Instalar:** no Android/Chrome aparece o banner "Instalar o app CORE FIT" (componente
+  `src/components/InstallPrompt.jsx`), ou use o menu do navegador → *Instalar app*. No iPhone/Safari:
+  botão **Compartilhar → Adicionar à Tela de Início**.
+- **Regerar os ícones** (depois de mudar a identidade): `node scripts/gen-pwa-icons.mjs`.
+- O service worker só é gerado no `npm run build` (não no `npm run dev`). Para testar a instalação
+  localmente: `npm run build && npm run preview`.
+- Atualização: `registerType: 'autoUpdate'` — o app pega a versão nova sozinho no próximo carregamento.
+- Para publicar nas lojas (Google Play / App Store) mais tarde, é possível empacotar esse mesmo PWA
+  com Capacitor ou, no Android, gerar um TWA com Bubblewrap/PWABuilder.
 
 ## Como funciona o estoque
 

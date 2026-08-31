@@ -2,6 +2,21 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { supabase } from '../../lib/supabaseClient'
 import AdminShell from '../../components/admin/AdminShell.jsx'
+import { comprimirImagem } from '../../utils/imagem'
+
+// Envia um arquivo pro bucket "produtos" do Supabase Storage e devolve a URL pública.
+async function enviarArquivo(file) {
+  const processado = await comprimirImagem(file)
+  const ext = (processado.type.split('/')[1] || 'jpg').replace('jpeg', 'jpg')
+  const nome =
+    (globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`) + '.' + ext
+  const { error } = await supabase.storage.from('produtos').upload(nome, processado, {
+    cacheControl: '3600',
+    contentType: processado.type || 'image/jpeg',
+  })
+  if (error) throw error
+  return supabase.storage.from('produtos').getPublicUrl(nome).data.publicUrl
+}
 
 const VAZIO = {
   nome: '',
@@ -26,6 +41,41 @@ export default function AdminProdutoForm() {
   const [loading, setLoading] = useState(editando)
   const [salvando, setSalvando] = useState(false)
   const [erro, setErro] = useState(null)
+  const [enviandoImg, setEnviandoImg] = useState(false)
+  const [enviandoGaleria, setEnviandoGaleria] = useState(false)
+
+  async function handleUploadPrincipal(e) {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    setErro(null)
+    setEnviandoImg(true)
+    try {
+      updateField('imagem_url', await enviarArquivo(file))
+    } catch (err) {
+      setErro('Não foi possível enviar a imagem: ' + (err?.message ?? err))
+    }
+    setEnviandoImg(false)
+  }
+
+  async function handleUploadGaleria(e) {
+    const files = [...(e.target.files ?? [])]
+    e.target.value = ''
+    if (!files.length) return
+    setErro(null)
+    setEnviandoGaleria(true)
+    try {
+      const urls = []
+      for (const file of files) urls.push(await enviarArquivo(file))
+      setForm((prev) => ({
+        ...prev,
+        galeriaText: [prev.galeriaText.trim(), ...urls].filter(Boolean).join('\n'),
+      }))
+    } catch (err) {
+      setErro('Não foi possível enviar as imagens: ' + (err?.message ?? err))
+    }
+    setEnviandoGaleria(false)
+  }
 
   useEffect(() => {
     if (!editando) return
@@ -388,25 +438,54 @@ export default function AdminProdutoForm() {
                 )}
               </div>
               <div className="space-y-2">
-                <label className="font-label-sm text-label-sm text-on-surface-variant block">URL da imagem principal</label>
+                <label className="font-label-sm text-label-sm text-on-surface-variant block">Imagem principal</label>
+                <label
+                  className={`btn-secondary w-full ${enviandoImg ? 'opacity-60 pointer-events-none' : 'cursor-pointer'}`}
+                >
+                  <span className="material-symbols-outlined">upload</span>
+                  {enviandoImg ? 'Enviando foto...' : 'Enviar foto do dispositivo'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    disabled={enviandoImg}
+                    onChange={handleUploadPrincipal}
+                  />
+                </label>
                 <input
                   type="text"
                   value={form.imagem_url}
                   onChange={(e) => updateField('imagem_url', e.target.value)}
                   className="field"
-                  placeholder="https://..."
+                  placeholder="Ou cole um link https://... aqui"
                 />
               </div>
               <div className="space-y-2">
                 <label className="font-label-sm text-label-sm text-on-surface-variant block">
-                  Galeria (uma URL por linha, opcional)
+                  Galeria (fotos extras, opcional)
+                </label>
+                <label
+                  className={`btn-secondary w-full ${
+                    enviandoGaleria ? 'opacity-60 pointer-events-none' : 'cursor-pointer'
+                  }`}
+                >
+                  <span className="material-symbols-outlined">add_photo_alternate</span>
+                  {enviandoGaleria ? 'Enviando fotos...' : 'Enviar fotos para a galeria'}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    disabled={enviandoGaleria}
+                    onChange={handleUploadGaleria}
+                  />
                 </label>
                 <textarea
                   value={form.galeriaText}
                   onChange={(e) => updateField('galeriaText', e.target.value)}
                   className="field resize-none"
                   rows={3}
-                  placeholder={'https://...\nhttps://...'}
+                  placeholder={'Ou cole um link por linha:\nhttps://...\nhttps://...'}
                 />
               </div>
             </div>

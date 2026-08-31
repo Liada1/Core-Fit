@@ -18,6 +18,7 @@ create table if not exists public.products (
   -- cores: [{ "nome": "Preto Stealth / Volt", "hex": "#121212" }, ...]
   cores jsonb not null default '[]'::jsonb,
   -- tamanhos: [{ "tamanho": "40", "estoque": 10 }, ...]  (produtos sem grade de tamanho usam uma única entrada "Único")
+  --   Opcional: cada entrada pode ter "cor" ("Preto", ...) para controlar estoque por cor + tamanho — ver migration_4_estoque_por_cor.sql
   tamanhos jsonb not null default '[]'::jsonb,
   destaque boolean not null default false,
   ativo boolean not null default true,

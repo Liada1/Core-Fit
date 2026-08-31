@@ -26,7 +26,12 @@ export function CartProvider({ children }) {
   function addItem(produto, { tamanho, cor, quantidade = 1 }) {
     // estoqueDisponivel = null significa "sem controle de estoque para esta variação"
     // (produto ainda não configurado com grade de tamanhos) — nesse caso não travamos a quantidade em 0.
-    const tamanhoInfo = produto.tamanhos?.find((t) => t.tamanho === tamanho)
+    // Quando o produto controla estoque por cor, cada linha de `tamanhos` traz um campo `cor`
+    // e a disponibilidade depende da combinação cor + tamanho escolhida.
+    const usaCorNoEstoque = (produto.tamanhos ?? []).some((t) => (t.cor ?? '').trim() !== '')
+    const tamanhoInfo = produto.tamanhos?.find(
+      (t) => t.tamanho === tamanho && (!usaCorNoEstoque || (t.cor ?? '') === (cor ?? ''))
+    )
     const estoqueDisponivel = tamanhoInfo ? Number(tamanhoInfo.estoque) || 0 : null
     const id = lineKey(produto.id, tamanho, cor)
 

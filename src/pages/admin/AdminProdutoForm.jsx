@@ -22,7 +22,7 @@ export default function AdminProdutoForm() {
 
   const [form, setForm] = useState(VAZIO)
   const [cores, setCores] = useState([{ nome: '', hex: '#121212' }])
-  const [tamanhos, setTamanhos] = useState([{ tamanho: '', estoque: 0 }])
+  const [tamanhos, setTamanhos] = useState([{ tamanho: '', cor: '', estoque: 0 }])
   const [loading, setLoading] = useState(editando)
   const [salvando, setSalvando] = useState(false)
   const [erro, setErro] = useState(null)
@@ -49,7 +49,7 @@ export default function AdminProdutoForm() {
           ativo: data.ativo !== false,
         })
         setCores(data.cores?.length ? data.cores : [{ nome: '', hex: '#121212' }])
-        setTamanhos(data.tamanhos?.length ? data.tamanhos : [{ tamanho: '', estoque: 0 }])
+        setTamanhos(data.tamanhos?.length ? data.tamanhos : [{ tamanho: '', cor: '', estoque: 0 }])
       }
       setLoading(false)
     }
@@ -77,10 +77,31 @@ export default function AdminProdutoForm() {
     setTamanhos((prev) => prev.map((t, i) => (i === idx ? { ...t, [field]: value } : t)))
   }
   function addTamanho() {
-    setTamanhos((prev) => [...prev, { tamanho: '', estoque: 0 }])
+    setTamanhos((prev) => [...prev, { tamanho: '', cor: '', estoque: 0 }])
   }
   function removeTamanho(idx) {
     setTamanhos((prev) => prev.filter((_, i) => i !== idx))
+  }
+  // Expande os tamanhos digitados x cores cadastradas em uma linha para cada combinação,
+  // preservando o estoque já informado nas combinações que continuarem existindo.
+  function gerarGrade() {
+    const sizes = [...new Set(tamanhos.map((t) => String(t.tamanho).trim()).filter(Boolean))]
+    const cs = cores.filter((c) => c.nome.trim())
+    if (!sizes.length || !cs.length) {
+      setErro('Cadastre ao menos uma cor e digite ao menos um tamanho antes de gerar a grade.')
+      return
+    }
+    const atual = new Map(
+      tamanhos.map((t) => [`${(t.cor ?? '').trim()}__${String(t.tamanho).trim()}`, t.estoque])
+    )
+    const nova = []
+    cs.forEach((c) => {
+      sizes.forEach((s) => {
+        nova.push({ tamanho: s, cor: c.nome.trim(), estoque: Number(atual.get(`${c.nome.trim()}__${s}`)) || 0 })
+      })
+    })
+    setTamanhos(nova)
+    setErro(null)
   }
 
   async function handleSubmit(e) {
@@ -108,7 +129,14 @@ export default function AdminProdutoForm() {
       cores: cores.filter((c) => c.nome.trim()).map((c) => ({ nome: c.nome.trim(), hex: c.hex })),
       tamanhos: tamanhos
         .filter((t) => String(t.tamanho).trim())
-        .map((t) => ({ tamanho: String(t.tamanho).trim(), estoque: Math.max(0, Number(t.estoque) || 0) })),
+        .map((t) => {
+          const cor = (t.cor ?? '').trim()
+          return {
+            tamanho: String(t.tamanho).trim(),
+            ...(cor ? { cor } : {}),
+            estoque: Math.max(0, Number(t.estoque) || 0),
+          }
+        }),
     }
 
     setSalvando(true)
@@ -256,13 +284,26 @@ export default function AdminProdutoForm() {
             <div className="glass-panel rounded-xl p-md md:p-lg space-y-md">
               <div className="flex items-center justify-between border-b border-white/10 pb-sm mb-md">
                 <h3 className="font-label-sm text-label-sm text-primary-fixed uppercase">Tamanhos &amp; Estoque</h3>
-                <button type="button" onClick={addTamanho} className="text-primary-container font-label-sm text-label-sm flex items-center gap-1">
-                  <span className="material-symbols-outlined text-[18px]">add</span>
-                  Adicionar
-                </button>
+                <div className="flex items-center gap-md">
+                  <button
+                    type="button"
+                    onClick={gerarGrade}
+                    className="text-primary-container font-label-sm text-label-sm flex items-center gap-1"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">grid_on</span>
+                    Gerar grade por cor
+                  </button>
+                  <button type="button" onClick={addTamanho} className="text-primary-container font-label-sm text-label-sm flex items-center gap-1">
+                    <span className="material-symbols-outlined text-[18px]">add</span>
+                    Adicionar
+                  </button>
+                </div>
               </div>
               <p className="font-label-sm text-label-sm text-on-surface-variant/70">
-                Produtos sem grade de tamanho: use um único item com tamanho "Único".
+                O estoque é por tamanho. Para controlar a quantidade de cada cor, escolha a cor em cada
+                linha &mdash; ou digite os tamanhos e toque em &quot;Gerar grade por cor&quot; para criar
+                todas as combinações de uma vez. Produtos sem grade: um único item com tamanho
+                &quot;Único&quot; e cor &quot;Todas as cores&quot;.
               </p>
               {tamanhos.map((t, idx) => (
                 <div key={idx} className="flex items-center gap-sm">
@@ -273,13 +314,30 @@ export default function AdminProdutoForm() {
                     placeholder="Tamanho (ex: 40, M, Único)"
                     className="field flex-1"
                   />
+                  <select
+                    value={t.cor ?? ''}
+                    onChange={(e) => updateTamanho(idx, 'cor', e.target.value)}
+                    className="field w-40 shrink-0"
+                  >
+                    <option value="">Todas as cores</option>
+                    {cores
+                      .filter((c) => c.nome.trim())
+                      .map((c) => (
+                        <option key={c.nome} value={c.nome.trim()}>
+                          {c.nome.trim()}
+                        </option>
+                      ))}
+                    {t.cor && !cores.some((c) => c.nome.trim() === t.cor) && (
+                      <option value={t.cor}>{t.cor} (cor removida)</option>
+                    )}
+                  </select>
                   <input
                     type="number"
                     min="0"
                     value={t.estoque}
                     onChange={(e) => updateTamanho(idx, 'estoque', e.target.value)}
                     placeholder="Estoque"
-                    className="field w-32"
+                    className="field w-24 shrink-0"
                   />
                   <button type="button" onClick={() => removeTamanho(idx)} className="text-on-surface-variant hover:text-error p-2">
                     <span className="material-symbols-outlined">close</span>

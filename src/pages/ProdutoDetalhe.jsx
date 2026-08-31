@@ -34,8 +34,12 @@ export default function ProdutoDetalhe() {
       } else {
         setProduto(data)
         setImagemAtiva(data.imagem_url)
-        setCorSelecionada(data.cores?.[0]?.nome ?? null)
-        const primeiroDisponivel = data.tamanhos?.find((t) => Number(t.estoque) > 0)
+        const primeiraCor = data.cores?.[0]?.nome ?? null
+        setCorSelecionada(primeiraCor)
+        const usaCor = (data.tamanhos ?? []).some((t) => (t.cor ?? '').trim() !== '')
+        const primeiroDisponivel = (data.tamanhos ?? []).find(
+          (t) => Number(t.estoque) > 0 && (!usaCor || (t.cor ?? '') === (primeiraCor ?? ''))
+        )
         setTamanhoSelecionado(primeiroDisponivel?.tamanho ?? null)
       }
       setLoading(false)
@@ -80,9 +84,23 @@ export default function ProdutoDetalhe() {
     )
   }
 
-  const tamanhoInfo = produto.tamanhos?.find((t) => t.tamanho === tamanhoSelecionado)
+  // Estoque por cor: quando qualquer linha de `tamanhos` tem `cor` preenchida, a disponibilidade
+  // passa a depender da combinação cor + tamanho. Caso contrário, casa só por tamanho (comportamento antigo).
+  const usaCorNoEstoque = (produto.tamanhos ?? []).some((t) => (t.cor ?? '').trim() !== '')
+
+  function linhaEstoque(cor, tam) {
+    return (produto.tamanhos ?? []).find(
+      (t) => t.tamanho === tam && (!usaCorNoEstoque || (t.cor ?? '') === (cor ?? ''))
+    )
+  }
+
+  const tamanhosUnicos = usaCorNoEstoque
+    ? [...new Set((produto.tamanhos ?? []).map((t) => t.tamanho))].map((tamanho) => ({ tamanho }))
+    : produto.tamanhos ?? []
+
+  const tamanhoInfo = linhaEstoque(corSelecionada, tamanhoSelecionado)
   const estoqueTamanho = tamanhoInfo ? Number(tamanhoInfo.estoque) || 0 : 0
-  const temTamanhos = (produto.tamanhos?.length ?? 0) > 0
+  const temTamanhos = tamanhosUnicos.length > 0
   const galeria = [produto.imagem_url, ...(produto.galeria ?? [])].filter(Boolean)
 
   function handleQuantidade(delta) {
@@ -168,16 +186,35 @@ export default function ProdutoDetalhe() {
                   <span className="font-label-sm text-label-sm text-on-surface-variant">{corSelecionada}</span>
                 </div>
                 <div className="flex gap-4 items-center">
-                  {produto.cores.map((cor) => (
-                    <button
-                      key={cor.nome}
-                      type="button"
-                      onClick={() => setCorSelecionada(cor.nome)}
-                      aria-label={cor.nome}
-                      className={`color-swatch ${corSelecionada === cor.nome ? 'is-selected' : ''}`}
-                      style={{ backgroundColor: cor.hex }}
-                    />
-                  ))}
+                  {produto.cores.map((cor) => {
+                    const semEstoqueNaCor =
+                      usaCorNoEstoque &&
+                      !(produto.tamanhos ?? []).some((t) => (t.cor ?? '') === cor.nome && Number(t.estoque) > 0)
+                    return (
+                      <button
+                        key={cor.nome}
+                        type="button"
+                        onClick={() => {
+                          setCorSelecionada(cor.nome)
+                          setQuantidade(1)
+                          if (usaCorNoEstoque) {
+                            const atualOk = Number(linhaEstoque(cor.nome, tamanhoSelecionado)?.estoque) > 0
+                            if (!atualOk) {
+                              const primeiro = [...new Set((produto.tamanhos ?? []).map((t) => t.tamanho))].find(
+                                (tam) => Number(linhaEstoque(cor.nome, tam)?.estoque) > 0
+                              )
+                              setTamanhoSelecionado(primeiro ?? null)
+                            }
+                          }
+                        }}
+                        aria-label={cor.nome}
+                        className={`color-swatch ${corSelecionada === cor.nome ? 'is-selected' : ''} ${
+                          semEstoqueNaCor ? 'opacity-30' : ''
+                        }`}
+                        style={{ backgroundColor: cor.hex }}
+                      />
+                    )
+                  })}
                 </div>
               </div>
             )}
@@ -188,8 +225,8 @@ export default function ProdutoDetalhe() {
                   <h3 className="font-label-sm text-label-sm text-on-surface uppercase">Selecione o Tamanho</h3>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {produto.tamanhos.map((t) => {
-                    const disponivel = Number(t.estoque) > 0
+                  {tamanhosUnicos.map((t) => {
+                    const disponivel = Number(linhaEstoque(corSelecionada, t.tamanho)?.estoque) > 0
                     const selecionado = tamanhoSelecionado === t.tamanho
                     return (
                       <button

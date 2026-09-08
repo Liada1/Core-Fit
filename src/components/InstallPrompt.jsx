@@ -78,7 +78,7 @@ export default function InstallPrompt() {
     <div className="fixed inset-x-0 bottom-0 z-[60] p-gutter pointer-events-none">
       <div className="pointer-events-auto mx-auto max-w-md glass-panel rounded-xl border border-outline-variant/30 p-md flex items-center gap-md shadow-2xl bg-surface-container-high">
         <span className="w-10 h-10 shrink-0 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
-          <span className="material-symbols-outlined fill text-[22px]">bolt</span>
+          <img src="/raio.png" alt="" className="h-6 w-auto" />
         </span>
         <div className="flex-1 min-w-0">
           <p className="font-label-md text-label-md text-on-surface font-bold">Instalar o app CORE FIT</p>

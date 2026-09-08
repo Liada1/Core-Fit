@@ -23,7 +23,7 @@ export default function Header({ searchValue, onSearchChange }) {
       <div className="flex justify-between items-center w-full max-w-container-max mx-auto gap-sm px-gutter py-md">
         <Link to="/" className="flex items-center gap-sm shrink-0">
           <span className="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
-            <span className="material-symbols-outlined fill text-[20px]">bolt</span>
+            <img src="/raio.png" alt="" className="h-5 w-auto" />
           </span>
           <span className="text-headline-md font-headline-md font-extrabold text-primary-container tracking-tighter">
             {STORE_NAME}
